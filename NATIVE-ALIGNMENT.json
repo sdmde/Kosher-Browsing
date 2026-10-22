@@ -1,0 +1,864 @@
+{
+  "artifact": "work/KosherBrowsing-current/app/build/outputs/bundle/release/app-release.aab",
+  "all64BitElfLoadSegmentsAligned16k": true,
+  "libraries": [
+    {
+      "file": "base/lib/arm64-v8a/libclearkey.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 130624,
+          "vaddr": 147008,
+          "alignment": 16384
+        },
+        {
+          "offset": 133424,
+          "vaddr": 166192,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libcrashhelper.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 3306288,
+          "vaddr": 3322672,
+          "alignment": 16384
+        },
+        {
+          "offset": 3430272,
+          "vaddr": 3463040,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libcrashtools.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 5747680,
+          "vaddr": 5764064,
+          "alignment": 16384
+        },
+        {
+          "offset": 5938256,
+          "vaddr": 5971024,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libfreebl3.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 846608,
+          "vaddr": 862992,
+          "alignment": 16384
+        },
+        {
+          "offset": 852328,
+          "vaddr": 885096,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libgkcodecs.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 4961104,
+          "vaddr": 4977488,
+          "alignment": 16384
+        },
+        {
+          "offset": 5124216,
+          "vaddr": 5156984,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/liblgpllibs.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 157536,
+          "vaddr": 173920,
+          "alignment": 16384
+        },
+        {
+          "offset": 165168,
+          "vaddr": 197936,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libmozavcodec.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 2020848,
+          "vaddr": 2037232,
+          "alignment": 16384
+        },
+        {
+          "offset": 2119184,
+          "vaddr": 2151952,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libmozavutil.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 390992,
+          "vaddr": 407376,
+          "alignment": 16384
+        },
+        {
+          "offset": 458784,
+          "vaddr": 491552,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libmozglue.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 1170480,
+          "vaddr": 1186864,
+          "alignment": 16384
+        },
+        {
+          "offset": 1198888,
+          "vaddr": 1231656,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libnss3.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 2774048,
+          "vaddr": 2790432,
+          "alignment": 16384
+        },
+        {
+          "offset": 2855864,
+          "vaddr": 2888632,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libplugin-container.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 2480,
+          "vaddr": 18864,
+          "alignment": 16384
+        },
+        {
+          "offset": 2968,
+          "vaddr": 35736,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libsoftokn3.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 315472,
+          "vaddr": 331856,
+          "alignment": 16384
+        },
+        {
+          "offset": 319216,
+          "vaddr": 351984,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/arm64-v8a/libxul.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 147327328,
+          "vaddr": 147343712,
+          "alignment": 16384
+        },
+        {
+          "offset": 152874048,
+          "vaddr": 152906816,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libclearkey.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 85216,
+          "vaddr": 89312,
+          "alignment": 4096
+        },
+        {
+          "offset": 86636,
+          "vaddr": 94828,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libcrashhelper.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 2440832,
+          "vaddr": 2444928,
+          "alignment": 4096
+        },
+        {
+          "offset": 2514864,
+          "vaddr": 2523056,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libcrashtools.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 4846688,
+          "vaddr": 4850784,
+          "alignment": 4096
+        },
+        {
+          "offset": 4965760,
+          "vaddr": 4973952,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libfreebl3.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 735840,
+          "vaddr": 739936,
+          "alignment": 4096
+        },
+        {
+          "offset": 738768,
+          "vaddr": 746960,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libgkcodecs.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 6090848,
+          "vaddr": 6094944,
+          "alignment": 4096
+        },
+        {
+          "offset": 6199460,
+          "vaddr": 6207652,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/liblgpllibs.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 187600,
+          "vaddr": 191696,
+          "alignment": 4096
+        },
+        {
+          "offset": 191524,
+          "vaddr": 199716,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libmozavcodec.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 1762976,
+          "vaddr": 1767072,
+          "alignment": 4096
+        },
+        {
+          "offset": 1827272,
+          "vaddr": 1835464,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libmozavutil.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 276992,
+          "vaddr": 281088,
+          "alignment": 4096
+        },
+        {
+          "offset": 333424,
+          "vaddr": 341616,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libmozglue.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 821376,
+          "vaddr": 825472,
+          "alignment": 4096
+        },
+        {
+          "offset": 836352,
+          "vaddr": 844544,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libnss3.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 1957968,
+          "vaddr": 1962064,
+          "alignment": 4096
+        },
+        {
+          "offset": 2002680,
+          "vaddr": 2010872,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libplugin-container.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 1648,
+          "vaddr": 5744,
+          "alignment": 4096
+        },
+        {
+          "offset": 1892,
+          "vaddr": 10084,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libsoftokn3.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 202080,
+          "vaddr": 206176,
+          "alignment": 4096
+        },
+        {
+          "offset": 203952,
+          "vaddr": 212144,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/armeabi-v7a/libxul.so",
+      "bits": 32,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 4096
+        },
+        {
+          "offset": 113801472,
+          "vaddr": 113805568,
+          "alignment": 4096
+        },
+        {
+          "offset": 116849056,
+          "vaddr": 116857248,
+          "alignment": 4096
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libclearkey.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 126736,
+          "vaddr": 143120,
+          "alignment": 16384
+        },
+        {
+          "offset": 129528,
+          "vaddr": 162296,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libcrashhelper.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 3612928,
+          "vaddr": 3629312,
+          "alignment": 16384
+        },
+        {
+          "offset": 3739024,
+          "vaddr": 3771792,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libcrashtools.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 6205520,
+          "vaddr": 6221904,
+          "alignment": 16384
+        },
+        {
+          "offset": 6398288,
+          "vaddr": 6431056,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libfreebl3.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 1230400,
+          "vaddr": 1246784,
+          "alignment": 16384
+        },
+        {
+          "offset": 1236032,
+          "vaddr": 1268800,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libgkcodecs.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 8029968,
+          "vaddr": 8046352,
+          "alignment": 16384
+        },
+        {
+          "offset": 8204112,
+          "vaddr": 8236880,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/liblgpllibs.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 161600,
+          "vaddr": 177984,
+          "alignment": 16384
+        },
+        {
+          "offset": 169160,
+          "vaddr": 201928,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libmozavcodec.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 3757408,
+          "vaddr": 3773792,
+          "alignment": 16384
+        },
+        {
+          "offset": 3856000,
+          "vaddr": 3888768,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libmozavutil.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 511328,
+          "vaddr": 527712,
+          "alignment": 16384
+        },
+        {
+          "offset": 584520,
+          "vaddr": 617288,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libmozglue.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 1150304,
+          "vaddr": 1166688,
+          "alignment": 16384
+        },
+        {
+          "offset": 1178864,
+          "vaddr": 1211632,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libnss3.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 2904000,
+          "vaddr": 2920384,
+          "alignment": 16384
+        },
+        {
+          "offset": 2985728,
+          "vaddr": 3018496,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libplugin-container.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 2384,
+          "vaddr": 18768,
+          "alignment": 16384
+        },
+        {
+          "offset": 2864,
+          "vaddr": 35632,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libsoftokn3.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 348624,
+          "vaddr": 365008,
+          "alignment": 16384
+        },
+        {
+          "offset": 352048,
+          "vaddr": 384816,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    },
+    {
+      "file": "base/lib/x86_64/libxul.so",
+      "bits": 64,
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "alignment": 16384
+        },
+        {
+          "offset": 160692224,
+          "vaddr": 160708608,
+          "alignment": 16384
+        },
+        {
+          "offset": 166250288,
+          "vaddr": 166283056,
+          "alignment": 16384
+        }
+      ],
+      "compatible16k": true
+    }
+  ]
+}

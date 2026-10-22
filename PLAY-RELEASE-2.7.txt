@@ -1,0 +1,7 @@
+Kosher Browsing 2.7 — version code 14
+
+Expanded random stranger-chat restrictions with additional named sites, subdomain handling and recognized Omegle/OmeTV/roulette brand variants across common suffixes. New or unlisted brands are not guaranteed covered. Unrelated email, shopping and information URLs are retained in regression checks.
+
+Downloads now opens Android's file manager at Downloads. Devices without a matching Downloads app fall back to a document browser. Download transfers remains available in the menu and Settings for in-app pause/resume/history. Download notifications return to transfer controls. Existing download checks, private staging and APK blocking remain active. No broad storage or foreground-service permissions are added.
+
+Chrome-style interface, main five interface languages, persistent browser profile and all other protections are retained. APK and AAB use their existing respective signing keys. No emulator or physical-device testing was performed.

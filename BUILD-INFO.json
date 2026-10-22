@@ -1,0 +1,52 @@
+{
+  "version": "2.7",
+  "versionCode": 14,
+  "applicationId": "org.shield.browser",
+  "minSdk": 26,
+  "targetSdk": 36,
+  "compileSdk": 37,
+  "releaseDebuggable": false,
+  "uploadCertificateSha256": "84b60c5f25305f1d018ef4d3b29d68eef43c5fb1d5bd4681cb6db37b48ff9d2c",
+  "phoneTestCertificateSha256": "2de1718d8f7abc6ed779a67c0bc664a92744933d8b0bc17823edf366fa1a0171",
+  "googlePlayAppSigningEnrolled": null,
+  "uploadedToPlay": false,
+  "emulatorUsed": false,
+  "deviceTested": false,
+  "validation": {
+    "releaseBuild": true,
+    "fullReleaseLint": {
+      "errors": 0,
+      "warningSummary": "0 errors, 23 warnings"
+    },
+    "bundletoolVersion": "1.18.3",
+    "bundletoolValidation": true,
+    "jarSignatureVerified": true,
+    "allBundlePayloadEntrySignersVerified": true,
+    "requestedNativePageAlignment": "PAGE_ALIGNMENT_16K",
+    "all64BitElfLoadSegmentsAligned16k": true,
+    "nativeLibraryCount": 39,
+    "generatedArm64Api36ApksSignatureAndZipAlignmentVerified": false,
+    "backHandlerJvmTests": false,
+    "protectionAndImageDomTests": true,
+    "captchaAndRandomChatRequestTests": true,
+    "remoteImagesFailClosed": true,
+    "apkMetadataAndContentPolicyTests": true,
+    "mainLabelLanguageCoverage": true,
+    "paletteContrast": true,
+    "randomChatVariantAndUnrelatedSiteTests": true
+  },
+  "artifacts": [
+    {
+      "file": "KosherBrowsing-v2.7-play.aab",
+      "bytes": 253963322,
+      "sha256": "ad6f73c4e81f5d5ac8eab03618d5656c7db9422abbe23b6a7acac7f86f4c4a91",
+      "purpose": "Google Play upload"
+    },
+    {
+      "file": "KosherBrowsing-v2.7-arm64-test.apk",
+      "bytes": 109955888,
+      "sha256": "60f6dafc95288504c6d366a31a6e1b0f8516e475607511bc6d8c485e2a1266f6",
+      "purpose": "Sideload phone testing, debug certificate retained"
+    }
+  ]
+}

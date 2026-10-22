@@ -1,0 +1,6 @@
+const fs=require('fs'),path=require('path'),assert=require('assert'),crypto=require('crypto'),Zip=require('jszip');const root=path.join(__dirname,'..');const asset=path.join(root,'app/src/main/assets');const dict=JSON.parse(fs.readFileSync(path.join(asset,'interface-languages.json')));const required=['Settings','Languages','Preferred languages','App language','Add language','Translate into this language','Home','Tabs','Bookmarks','Downloads','History','New tab','Cancel','Theme'];
+for(const lang of ['en','he','ar','es','fr']){assert(dict[lang]);if(lang!=='en')for(const key of required)assert(typeof dict[lang][key]==='string'&&dict[lang][key].length,key+' missing in '+lang);}
+for(const lang of ['he','ar'])assert(/[\u0590-\u06ff]/.test(dict[lang]['Languages']));
+function luminance(n){const v=[(n>>>16)&255,(n>>>8)&255,n&255].map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4;});return v[0]*.2126+v[1]*.7152+v[2]*.0722;}function contrast(a,b){let x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
+for(const [ink,bg]of [[0x202124,0xffffff],[0x5f6368,0xffffff],[0xe8eaed,0x202124],[0xbdc1c6,0x202124],[0x1a73e8,0xffffff],[0x8ab4f8,0x202124]])assert(contrast(ink,bg)>=4.5,'Color contrast too low');
+console.log('Language coverage and color contrast passed');

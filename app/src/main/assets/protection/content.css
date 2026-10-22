@@ -1,0 +1,14 @@
+/* Hide inline images by default, including dynamic source changes. */
+img { visibility:hidden !important; }
+img[data-shield-ready="yes"] { visibility:visible !important; }
+/* Inline CSS images cannot be safely intercepted; suppress rather than expose. */
+*, *::before, *::after { background-image:none !important; }
+svg image {visibility:hidden !important;}
+ytd-reel-shelf-renderer,ytd-rich-shelf-renderer[is-shorts],ytm-reel-shelf-renderer,ytm-shorts-lockup-view-model,a[href^="/shorts/"],a[href*="youtube.com/shorts/"],.adsbygoogle,#google_ads_frame1,.ad-container,.advertisement,[id^="google_ads_iframe"],[data-ad-slot] {display:none !important;}
+
+/* Unverifiable image surfaces remain hidden outside recognized CAPTCHA frames. */
+canvas,input[type="image"],object,embed {visibility:hidden !important;}
+*,*::before,*::after {border-image-source:none !important;list-style-image:none !important;mask-image:none !important;}
+
+svg {visibility:hidden !important;}
+*::before,*::after {content:normal !important;}

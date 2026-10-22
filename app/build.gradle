@@ -1,0 +1,39 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'org.shield.browser'
+    compileSdk { version = release(37) { minorApiLevel = 0 } }
+    defaultConfig { applicationId 'org.shield.browser'; minSdk 26; targetSdk 36; versionCode 14; versionName '2.7' }
+    bundle { language { enableSplit = false } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    splits { abi { enable true; reset(); include 'arm64-v8a', 'armeabi-v7a', 'x86_64'; universalApk true } }
+    // Compressed sideload APKs; Play serves modern uncompressed, 16KB-aligned libraries.
+    packaging { jniLibs { useLegacyPackaging = true } }
+    def uploadStore = providers.environmentVariable('KOSHER_UPLOAD_KEYSTORE').orNull
+    if (uploadStore) {
+        signingConfigs {
+            upload {
+                storeFile file(uploadStore)
+                storeType 'PKCS12'
+                storePassword providers.environmentVariable('KOSHER_UPLOAD_STORE_PASSWORD').orNull
+                keyAlias providers.environmentVariable('KOSHER_UPLOAD_KEY_ALIAS').orElse('kosher-upload').get()
+                keyPassword providers.environmentVariable('KOSHER_UPLOAD_KEY_PASSWORD').orNull
+            }
+        }
+        buildTypes.release.signingConfig = signingConfigs.upload
+    }
+    buildTypes {
+        release { debuggable false; minifyEnabled false }
+    }
+    // Fail closed rather than quietly producing an unsigned publication artifact.
+    tasks.configureEach {
+        if (name == 'bundleRelease') doFirst {
+            if (!uploadStore) throw new GradleException('Set KOSHER_UPLOAD_* signing environment variables. See PLAY-RELEASE.md.')
+        }
+    }
+}
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        variant.packaging.jniLibs.useLegacyPackagingFromBundle.set(false)
+    }
+}
+dependencies { implementation 'org.mozilla.geckoview:geckoview:158.0.20261007201254' }
