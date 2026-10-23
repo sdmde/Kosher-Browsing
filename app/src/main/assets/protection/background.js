@@ -1,3 +1,5 @@
+const classifiedChats=new Set();
+function classifiedChat(details){try{return [details.url,details.documentUrl].filter(Boolean).some(url=>classifiedChats.has((details.incognito?"private:":"normal:")+new URL(url).hostname));}catch{return false;}}
 const stats={ads:0,sites:0,shorts:0,filteredImages:0,failedImages:0};let statsPort,statsTimer;
 function publish(){try{statsPort?.postMessage(stats);}catch{}browser.storage?.local.set({stats});}
 browser.storage?.local.get('stats').then(saved=>{for(const k of Object.keys(stats))stats[k]+=Math.max(0,Number(saved.stats?.[k])||0);publish();});
@@ -14,9 +16,11 @@ browser.webRequest.onBeforeRequest.addListener(details=>{
   const fields=details.requestBody?.formData;
   if(searchHost&&fields){
    const searchText=['q','query','p','search_query','search','text','wd','keyword'].flatMap(key=>fields[key]||[]).join(' ').normalize('NFKC');
+   if(ShieldPolicy.randomChatIntent(searchText))return deny(details,'randomchat');
    if(ShieldPolicy.adultTerms.test(searchText))return deny(details,'adult');
   }
  }
+ if(classifiedChat(details))return deny(details,'randomchat');
  const policy=ShieldPolicy.inspect(details.url,details.type);if(policy.cancel)return deny(details,policyReason(details.url));if(policy.redirectUrl)return policy;
  const why=reason(details.url);if(why)return deny(details,why);
  if(details.type!=='image')return {};
@@ -29,7 +33,7 @@ browser.webRequest.onBeforeRequest.addListener(details=>{
  filter.onerror=close;
  filter.onstop=async()=>{if(ended)return;try{const output=await ShieldFilter.image(new Blob(chunks));const bytes=await output.arrayBuffer();if(!ended){filter.write(bytes);success=true;}}catch{}finally{close();}};
  return {};
-},{urls:['http://*/*','https://*/*']},['blocking','requestBody']);
+},{urls:['http://*/*','https://*/*','ws://*/*','wss://*/*']},['blocking','requestBody']);
 const resumes=new Set();
 browser.webRequest.onBeforeSendHeaders.addListener(details=>{
  const host=new URL(details.url).hostname;
@@ -56,3 +60,5 @@ async function filteredImage(url,incognito=false){
 }
 function drainImages(){while(imageJobs<4&&imageQueue.length){const job=imageQueue.shift();imageJobs++;filteredImage(job.url,job.incognito).then(job.resolve,()=>job.resolve({ok:false})).finally(()=>{imageJobs--;drainImages();});}}
 browser.runtime?.onMessage?.addListener((message,sender)=>{if(message?.kind!=='filter-image')return;if(!sender?.tab||!/^https?:/i.test(sender.url||'')||imageQueue.length>=100)return Promise.resolve({ok:false});return new Promise(resolve=>{imageQueue.push({url:message.url,incognito:!!sender.tab.incognito,resolve});drainImages();});});
+
+browser.runtime?.onMessage?.addListener((message,sender)=>{if(message?.kind!=='restrict-random-chat'||!sender?.tab||!/^https?:/i.test(sender.url||''))return;const info=message.evidence||{};if(!ShieldPolicy.isRandomChatHost(new URL(sender.url).hostname)&&!ShieldPolicy.randomChatDocument(info))return;classifiedChats.add((sender.tab.incognito?'private:':'normal:')+new URL(sender.url).hostname);return Promise.resolve({blocked:true});});

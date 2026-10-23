@@ -2,7 +2,7 @@ plugins { id 'com.android.application' }
 android {
     namespace 'org.shield.browser'
     compileSdk { version = release(37) { minorApiLevel = 0 } }
-    defaultConfig { applicationId 'org.shield.browser'; minSdk 26; targetSdk 36; versionCode 15; versionName '2.8' }
+    defaultConfig { applicationId 'org.shield.browser'; minSdk 26; targetSdk 36; versionCode 16; versionName '2.9' }
     bundle { language { enableSplit = false } }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
     splits { abi { enable true; reset(); include 'arm64-v8a', 'armeabi-v7a', 'x86_64'; universalApk true } }

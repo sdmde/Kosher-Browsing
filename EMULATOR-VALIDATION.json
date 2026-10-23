@@ -1,0 +1,45 @@
+{
+  "version": "2.9",
+  "api": 30,
+  "abi": "x86_64",
+  "physicalDeviceTested": false,
+  "cases": [
+    {
+      "name": "article",
+      "url": "http://10.0.2.2:8765/article",
+      "passed": true
+    },
+    {
+      "name": "brand",
+      "url": "https://meetgle.com/",
+      "passed": true
+    },
+    {
+      "name": "variant",
+      "url": "https://random-video-chat.invalid/",
+      "passed": true
+    },
+    {
+      "name": "redirect",
+      "url": "http://10.0.2.2:8765/redirect",
+      "passed": true
+    },
+    {
+      "name": "unknown-spa",
+      "url": "http://10.0.2.2:8765/spa",
+      "passed": true
+    },
+    {
+      "name": "private-safe",
+      "passed": true
+    },
+    {
+      "name": "private-clone",
+      "passed": true
+    },
+    {
+      "name": "private-learned",
+      "passed": true
+    }
+  ]
+}

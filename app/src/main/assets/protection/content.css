@@ -12,3 +12,5 @@ canvas,input[type="image"],object,embed {visibility:hidden !important;}
 
 svg {visibility:hidden !important;}
 *::before,*::after {content:normal !important;}
+
+html[data-shield-chat-blocked="yes"] {visibility:hidden!important;}

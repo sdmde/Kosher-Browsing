@@ -1,6 +1,6 @@
 # Release builds
 
-The latest app version is 2.8, version code 15. Package ID, min SDK 26, target SDK 36 and the three Gecko ABIs remain unchanged.
+The latest app version is 2.9, version code 16. Package ID, min SDK 26, target SDK 36 and the three Gecko ABIs remain unchanged.
 
 Generate a signed release bundle with your own external upload keystore and the KOSHER_UPLOAD_* environment variables described in README.md. Never commit private keys or passwords. Source distributions and this repository intentionally exclude them. A debug APK cannot update an installation signed with Google Play's app-signing certificate; publish the AAB through the same Play Console app/track for those users.
 

@@ -1,0 +1,17 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert'),path=require('path');
+const listeners={},messages=[],base=path.join(__dirname,'../app/src/main/assets/protection');
+const c={URL,Blob,AbortController,console,setTimeout:()=>0,clearTimeout(){},browser:{runtime:{getURL:p=>'moz-extension://test/'+p,onMessage:{addListener:f=>messages.push(f)}},webRequest:{onBeforeRequest:{addListener:f=>listeners.before=f},onHeadersReceived:{addListener(){}},onBeforeSendHeaders:{addListener(){}}}}};
+vm.createContext(c);for(const f of ['adult-hosts.js','policy.js','rules.js','captcha.js','background.js'])vm.runInContext(fs.readFileSync(path.join(base,f),'utf8'),c);
+const classify=messages.at(-1),request=(url,incognito=false,type='main_frame',documentUrl)=>listeners.before({url,incognito,type,documentUrl,method:'GET'});
+const evidence={title:'Free Random Video Chat',actions:['Start video chat']};
+classify({kind:'restrict-random-chat',evidence},{url:'https://new-chat-fixture.invalid/',tab:{incognito:true}});
+assert(request('https://new-chat-fixture.invalid/',true).redirectUrl.includes('reason=randomchat'));
+assert(!request('https://new-chat-fixture.invalid/').redirectUrl,'Private discoveries must not leak into ordinary browsing');
+assert(request('wss://backend.invalid/socket',true,'websocket','https://new-chat-fixture.invalid/').cancel,'Detected page websocket requests must be stopped');
+classify({kind:'restrict-random-chat',evidence:{title:'Random video chat safety guide',actions:['Read more']}},{url:'https://article-fixture.invalid/',tab:{incognito:false}});
+assert(!request('https://article-fixture.invalid/').redirectUrl,'An article without chat controls must remain accessible');
+classify({kind:'restrict-random-chat',evidence},{url:'https://ordinary-discovery.invalid/',tab:{incognito:false}});
+assert(request('https://ordinary-discovery.invalid/').redirectUrl);
+assert(!request('https://ordinary-discovery.invalid/',true).redirectUrl,'Normal discoveries must not leak into private browsing');
+assert(request('wss://meetgle.com/socket',false,'websocket').cancel);
+console.log('Detected-site requests, websocket blocking, article controls and private/normal scope isolation passed');

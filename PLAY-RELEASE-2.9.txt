@@ -1,4 +1,4 @@
-Kosher Browsing 2.8 — version code 15
+Kosher Browsing 2.9 — version code 16
 
 Expanded random stranger-chat restrictions with additional named sites, subdomain handling and recognized Omegle/OmeTV/roulette brand variants across common suffixes. New or unlisted brands are not guaranteed covered. Unrelated email, shopping and information URLs are retained in regression checks.
 
@@ -6,4 +6,6 @@ Downloads now opens Android's file manager at Downloads. Devices without a match
 
 Chrome-style interface, main five interface languages, persistent browser profile and all other protections are retained. APK and AAB use their existing respective signing keys. No emulator or physical-device testing was performed.
 
-New in 2.8: Gecko incognito tabs excluded from history/session/recently closed storage, private popups, screenshot/preview protection, downloads disabled in incognito, and a searchable tab-style history grid with per-entry deletion.
+New in 2.9: Gecko incognito tabs excluded from history/session/recently closed storage, private popups, screenshot/preview protection, downloads disabled in incognito, and a searchable tab-style history grid with per-entry deletion.
+
+Version 2.9 strengthens random-chat host variants and search restrictions, detects interactive unfamiliar chat pages, and blocks subsequent requests/WebSockets separately for private and normal browsing. Android API30 x86_64 emulator scenarios passed.

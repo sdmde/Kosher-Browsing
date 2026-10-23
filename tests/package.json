@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "test": "node policy.cjs && node network.cjs && node advanced.cjs && node chat-sites.cjs && node background-images.cjs && node image.cjs && node inline.cjs && node remote-images.cjs && node reader.cjs && node chrome-language.cjs"
+    "test": "node policy.cjs && node network.cjs && node advanced.cjs && node chat-sites.cjs && node chat-learning.cjs && node background-images.cjs && node image.cjs && node inline.cjs && node remote-images.cjs && node reader.cjs && node chrome-language.cjs"
   },
   "devDependencies": {
     "playwright": "^1.56.0"

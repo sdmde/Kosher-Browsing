@@ -1,6 +1,6 @@
 # Kosher Browsing
 
-An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.8 (version code 15)**. Package: `org.shield.browser`. Developer: sdmde.
+An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.9 (version code 16)**. Package: `org.shield.browser`. Developer: sdmde.
 
 ## Features
 
@@ -35,7 +35,7 @@ npm test --prefix tests
 
 Set `CHROMIUM_PATH` when using an existing desktop Chromium browser. Tests use synthetic images and mocked requests; they do not prove live compatibility with every website. JVM download-policy tests are in `tests/downloads/DownloadPolicyTest.java`. They can be compiled with `app/src/main/java/org/shield/browser/DownloadPolicy.java` and run as `org.shield.browser.DownloadPolicyTest`.
 
-Validation has included compilation, Android lint, desktop policy/image checks, JVM package checks, bundle/signature checks and native-library alignment checks. No emulator or physical-device testing has been performed. Phone layout, file-manager integrations, CAPTCHA flows and translation-model behavior remain for device testing.
+Validation has included compilation, Android lint, desktop policy/image checks, JVM package checks, bundle/signature checks and native-library alignment checks. Android API 30 x86_64 emulator tests covered ordinary content, an educational article, known/variant chat hosts, redirects, dynamic unknown-site detection and private-tab blocking. No physical-device testing has been performed. Phone layout, file-manager integrations, CAPTCHA flows and translation-model behavior remain for device testing.
 
 ## Privacy and license
 
@@ -48,3 +48,11 @@ Mandatory protections have no off switch. This app cannot prevent uninstalling i
 Use New incognito tab in the menu or the shield button in the tab tray. Private tabs use Gecko private mode and are excluded from session restoration, history and recently closed tabs. Popups and new linked tabs inherit private mode. Close all private tabs to end the private session. Private tabs are labeled and excluded from screenshots and previews. Downloads are disabled in incognito; deliberately saved bookmarks remain. Incognito does not hide activity from websites or your network provider. Private image verification omits cookies, so images requiring authentication can remain hidden. All browsing protections remain enabled.
 
 History opens in a full-screen searchable two-column card grid. Tap a card to open it, or hold it to delete the entry or open it privately. Clear history removes all saved entries. Cards show site names rather than stored page screenshots.
+
+## Stronger random-chat blocking in 2.9
+
+The network rules cover 2.9 domain-list updates, recognizable random/anonymous/stranger-chat host variants, search intent, subframes and WebSocket requests. Newly covered services include TalkWithStranger, ChatMatch, Meetgle, Chatous, Chatib and Chatingly. An isolated content script also checks titles, descriptions and headings alongside chat-start controls to detect unfamiliar interactive chat sites, including dynamic pages. Detection stops the page and sends it to the built-in blocked screen.
+
+Detected hosts are remembered only in extension memory until the browser process stops, separately for private and normal browsing. Later requests and WebSockets from those hosts are blocked. There is no external classification service or automatic list update. Content detection is heuristic: an undisclosed or deliberately disguised service can still evade it. Ordinary calling services and articles are not blocked merely for mentioning chat.
+
+The list was checked against service-owned pages on 2026-10-23: [TalkWithStranger](https://randomchat.talkwithstranger.com/chatrooms/), [ChatMatch](https://www.chatmatch.app/), [Meetgle](https://meetgle.com/video-chat/), [Chatous](https://chatous.com/), [Chatib](https://www.chatib.us/) and [Chatingly](https://chatingly.com/).

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Kosher Browsing Protections",
-  "version": "2.8",
+  "version": "2.9",
   "browser_specific_settings": {
     "gecko": {
       "id": "shield@browser.local"
@@ -39,6 +39,8 @@
         "content.css"
       ],
       "js": [
+        "policy.js",
+        "random-chat-guard.js",
         "captcha.js",
         "filter.js",
         "content.js",
