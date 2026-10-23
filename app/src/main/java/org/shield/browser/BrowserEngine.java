@@ -18,7 +18,7 @@ public final class BrowserEngine {
         android.os.Handler main=new android.os.Handler(android.os.Looper.getMainLooper());
         if(android.os.Looper.myLooper()!=android.os.Looper.getMainLooper()){main.post(()->ensure(context,callback));return;}
         Context app=context.getApplicationContext();GeckoRuntime r=runtime(app);
-        r.getWebExtensionController().ensureBuiltIn("resource://android/assets/protection/","shield@browser.local").accept(ext->main.post(()->{
+        r.getWebExtensionController().ensureBuiltIn("resource://android/assets/protection/","shield@browser.local").then(ext->{GeckoResult<WebExtension> allowed=new GeckoResult<>();main.post(()->r.getWebExtensionController().setAllowedInPrivateBrowsing(ext,true).accept(allowed::complete,allowed::completeExceptionally));return allowed;}).accept(ext->main.post(()->{
             extension=ext;
             ext.setMessageDelegate(new WebExtension.MessageDelegate(){
                 @Override public void onConnect(WebExtension.Port port){

@@ -1,6 +1,6 @@
 # Kosher Browsing
 
-An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.7 (version code 14)**. Package: `org.shield.browser`. Developer: sdmde.
+An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.8 (version code 15)**. Package: `org.shield.browser`. Developer: sdmde.
 
 ## Features
 
@@ -42,3 +42,9 @@ Validation has included compilation, Android lint, desktop policy/image checks, 
 Browser data is primarily stored in the app's local profile. Websites, search engines and engine services still receive their ordinary network requests. See [privacy policy](PRIVACY-POLICY.md), [third-party notices](THIRD-PARTY.md) and [GPL-3.0 license](LICENSE).
 
 Mandatory protections have no off switch. This app cannot prevent uninstalling it, using another browser or every possible bypass; it is not a device-owner parental-control system.
+
+## Incognito and history
+
+Use New incognito tab in the menu or the shield button in the tab tray. Private tabs use Gecko private mode and are excluded from session restoration, history and recently closed tabs. Popups and new linked tabs inherit private mode. Close all private tabs to end the private session. Private tabs are labeled and excluded from screenshots and previews. Downloads are disabled in incognito; deliberately saved bookmarks remain. Incognito does not hide activity from websites or your network provider. Private image verification omits cookies, so images requiring authentication can remain hidden. All browsing protections remain enabled.
+
+History opens in a full-screen searchable two-column card grid. Tap a card to open it, or hold it to delete the entry or open it privately. Clear history removes all saved entries. Cards show site names rather than stored page screenshots.

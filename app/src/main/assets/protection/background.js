@@ -5,7 +5,7 @@ function count(key){stats[key]++;clearTimeout(statsTimer);statsTimer=setTimeout(
 function connectStats(){if(!browser.runtime?.connectNative)return;try{statsPort=browser.runtime.connectNative('kosherStats');statsPort.onDisconnect.addListener(()=>{statsPort=null;setTimeout(connectStats,1500);});publish();}catch{setTimeout(connectStats,1500);}}
 connectStats();
 function reason(url){try{const u=new URL(url);if((u.hostname==='youtube.com'||u.hostname.endsWith('.youtube.com'))&&/^\/shorts(?:\/|$)/.test(u.pathname))return 'shorts';let host=u.hostname;while(host.includes('.')){if(AD_HOSTS.has(host))return 'ad';host=host.slice(host.indexOf('.')+1);}return AD_PATHS.some(p=>u.pathname.includes(p))?'ad':null;}catch{return 'adult';}}
-function deny(details,why){count(why==='ad'?'ads':why==='shorts'?'shorts':'sites');return details.type==='main_frame'&&browser.runtime?.getURL?{redirectUrl:browser.runtime.getURL('blocked.html')+'?reason='+why+'&url='+encodeURIComponent(details.url)}:{cancel:true};}
+function deny(details,why){if(!details.incognito)count(why==='ad'?'ads':why==='shorts'?'shorts':'sites');return details.type==='main_frame'&&browser.runtime?.getURL?{redirectUrl:browser.runtime.getURL('blocked.html')+'?reason='+why+'&url='+encodeURIComponent(details.url)}:{cancel:true};}
 function policyReason(url){const host=new URL(url).hostname.toLowerCase().replace(/\.$/,'');if(ShieldPolicy.isRandomChatHost(host))return 'randomchat';return ShieldPolicy.social.some(h=>host===h||host.endsWith('.'+h))?'social':'adult';}
 browser.webRequest.onBeforeRequest.addListener(details=>{
  if(details.method==='POST'){
@@ -21,9 +21,9 @@ browser.webRequest.onBeforeRequest.addListener(details=>{
  const why=reason(details.url);if(why)return deny(details,why);
  if(details.type!=='image')return {};
  if(ShieldCaptcha.image(details.url,details.documentUrl))return {};
- let filter;try{filter=browser.webRequest.filterResponseData(details.requestId);}catch{count('failedImages');return {cancel:true};}
+ let filter;try{filter=browser.webRequest.filterResponseData(details.requestId);}catch{if(!details.incognito)count('failedImages');return {cancel:true};}
  let chunks=[],size=0,ended=false,success=false;
- const close=()=>{if(ended)return;ended=true;clearTimeout(timer);chunks=[];count(success?'filteredImages':'failedImages');try{filter.close();}catch{}};
+ const close=()=>{if(ended)return;ended=true;clearTimeout(timer);chunks=[];if(!details.incognito)count(success?'filteredImages':'failedImages');try{filter.close();}catch{}};
  const timer=setTimeout(close,20000);
  filter.ondata=e=>{size+=e.data.byteLength;if(size>20*1024*1024)close();else if(!ended)chunks.push(e.data);};
  filter.onerror=close;
@@ -45,14 +45,14 @@ browser.webRequest.onErrorOccurred?.addListener(d=>resumes.delete(d.requestId),{
 
 // Content scripts only reveal an HTTP image after this second, explicit verification.
 let imageJobs=0;const imageQueue=[];
-async function filteredImage(url){
+async function filteredImage(url,incognito=false){
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
  try{const u=new URL(url);if(!/^https?:$/.test(u.protocol)||ShieldPolicy.inspect(url,'image').cancel||reason(url))throw Error('Unsupported or blocked URL');
- const response=await fetch(url,{credentials:'include',cache:'no-store',signal:controller.signal});if(!response.ok||ShieldPolicy.inspect(response.url||url,'image').cancel||reason(response.url||url))throw Error('Image request failed');
+ const response=await fetch(url,{credentials:incognito?'omit':'include',cache:'no-store',signal:controller.signal});if(!response.ok||ShieldPolicy.inspect(response.url||url,'image').cancel||reason(response.url||url))throw Error('Image request failed');
  const reader=response.body.getReader(),chunks=[];let size=0;
  while(true){const part=await reader.read();if(part.done)break;size+=part.value.byteLength;if(size>20*1024*1024){await reader.cancel();throw Error('Image too large');}chunks.push(part.value);}
  const output=await ShieldFilter.image(new Blob(chunks));const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(output);});return {ok:true,data};
  }catch{return {ok:false};}finally{clearTimeout(timer);}
 }
-function drainImages(){while(imageJobs<4&&imageQueue.length){const job=imageQueue.shift();imageJobs++;filteredImage(job.url).then(job.resolve,()=>job.resolve({ok:false})).finally(()=>{imageJobs--;drainImages();});}}
-browser.runtime?.onMessage?.addListener((message,sender)=>{if(message?.kind!=='filter-image')return;if(!sender?.tab||!/^https?:/i.test(sender.url||'')||imageQueue.length>=100)return Promise.resolve({ok:false});return new Promise(resolve=>{imageQueue.push({url:message.url,resolve});drainImages();});});
+function drainImages(){while(imageJobs<4&&imageQueue.length){const job=imageQueue.shift();imageJobs++;filteredImage(job.url,job.incognito).then(job.resolve,()=>job.resolve({ok:false})).finally(()=>{imageJobs--;drainImages();});}}
+browser.runtime?.onMessage?.addListener((message,sender)=>{if(message?.kind!=='filter-image')return;if(!sender?.tab||!/^https?:/i.test(sender.url||'')||imageQueue.length>=100)return Promise.resolve({ok:false});return new Promise(resolve=>{imageQueue.push({url:message.url,incognito:!!sender.tab.incognito,resolve});drainImages();});});

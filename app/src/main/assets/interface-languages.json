@@ -116,7 +116,13 @@
     "system": "ברירת מחדל",
     "light": "בהיר",
     "dark": "כהה",
-    "Download transfers": "העברות הורדה"
+    "Download transfers": "העברות הורדה",
+    "Incognito": "גלישה בסתר",
+    "New incognito tab": "כרטיסייה חדשה בסתר",
+    "Open in incognito": "פתיחה בסתר",
+    "Search history": "חיפוש בהיסטוריה",
+    "No history found": "לא נמצאה היסטוריה",
+    "Downloads are disabled in incognito": "הורדות מושבתות בגלישה בסתר"
   },
   "ar": {
     "Done": "تم",
@@ -235,7 +241,13 @@
     "system": "افتراضي النظام",
     "light": "فاتح",
     "dark": "داكن",
-    "Download transfers": "عمليات التنزيل"
+    "Download transfers": "عمليات التنزيل",
+    "Incognito": "التصفح المتخفي",
+    "New incognito tab": "علامة تبويب متخفية جديدة",
+    "Open in incognito": "فتح في وضع التصفح المتخفي",
+    "Search history": "البحث في السجل",
+    "No history found": "لم يتم العثور على سجل",
+    "Downloads are disabled in incognito": "التنزيلات معطلة في وضع التصفح المتخفي"
   },
   "es": {
     "Cancel": "Cancelar",
@@ -352,7 +364,13 @@
     "system": "Sistema",
     "light": "Claro",
     "dark": "Oscuro",
-    "Download transfers": "Transferencias de descarga"
+    "Download transfers": "Transferencias de descarga",
+    "Incognito": "Incógnito",
+    "New incognito tab": "Nueva pestaña de incógnito",
+    "Open in incognito": "Abrir en incógnito",
+    "Search history": "Buscar en el historial",
+    "No history found": "No se encontró historial",
+    "Downloads are disabled in incognito": "Las descargas están desactivadas en incógnito"
   },
   "fr": {
     "Cancel": "Annuler",
@@ -468,6 +486,12 @@
     "system": "Système",
     "light": "Clair",
     "dark": "Sombre",
-    "Download transfers": "Transferts de téléchargement"
+    "Download transfers": "Transferts de téléchargement",
+    "Incognito": "Navigation privée",
+    "New incognito tab": "Nouvel onglet privé",
+    "Open in incognito": "Ouvrir en navigation privée",
+    "Search history": "Rechercher dans l’historique",
+    "No history found": "Aucun historique trouvé",
+    "Downloads are disabled in incognito": "Les téléchargements sont désactivés en navigation privée"
   }
 }

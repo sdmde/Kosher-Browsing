@@ -161,6 +161,7 @@ final class BrowserUi {
         protectedRow.addView(text("Browsing protections are always on",13,muted()));setAction(protectedRow,"Protection dashboard",f::dashboard);
         LinearLayout.LayoutParams pp=new LinearLayout.LayoutParams(-1,-2);pp.topMargin=a.dp(20);page.addView(protectedRow,pp);
         TextView customize=text("Customize homepage",14,a.accent());customize.setGravity(Gravity.CENTER);customize.setPadding(a.dp(12),a.dp(16),a.dp(12),a.dp(16));setAction(customize,"Customize homepage",()->new BrowserSettings(a).show());page.addView(customize);
+        if(a.current()!=null&&a.current().incognito){TextView notice=text("Incognito",22,a.accent());notice.setGravity(Gravity.CENTER);page.addView(notice);TextView details=text("History and tabs are not saved. Saved bookmarks remain. Websites and your network provider can still see your activity.",14,muted());details.setPadding(a.dp(20),a.dp(12),a.dp(20),a.dp(20));page.addView(details);}
         f.home=scroll;f.content.addView(scroll,new FrameLayout.LayoutParams(-1,-1));
     }
 
@@ -196,7 +197,7 @@ final class BrowserUi {
         quick.addView(quickAction(IconButton.SHARE,"Share page",a.pageAvailable(),()->{d.dismiss();a.sharePage();}),new LinearLayout.LayoutParams(0,a.dp(48),1));outer.addView(quick);
         ScrollView scroll=new ScrollView(a);LinearLayout list=column();scroll.addView(list);
         int max=a.getResources().getDisplayMetrics().heightPixels-a.dp(230);outer.addView(scroll,new LinearLayout.LayoutParams(-1,Math.min(a.dp(580),Math.max(a.dp(220),max))));
-        menuRow(list,d,R.drawable.ic_add,"New tab",()->a.add("kosher:home",true));divider(list);
+        menuRow(list,d,R.drawable.ic_add,"New tab",()->a.add("kosher:home",true,false,false));menuRow(list,d,IconButton.SHIELD,"New incognito tab",a::addIncognito);divider(list);
         menuRow(list,d,IconButton.HISTORY,"History",a::showHistory);menuRow(list,d,R.drawable.ic_bookmark,"Bookmarks",a::showBookmarks);
         menuRow(list,d,IconButton.DOWNLOAD,"Downloads",a.downloads::showDownloads);menuRow(list,d,IconButton.DOWNLOAD,"Download transfers",a.downloads::showTransfers);menuRow(list,d,IconButton.SHARE,"Share page",a::sharePage);menuRow(list,d,IconButton.PAGE,"Passwords",a.features::autofill);divider(list);
         if(a.pageAvailable()){
@@ -225,6 +226,7 @@ final class BrowserUi {
         page.setOnApplyWindowInsetsListener((v,insets)->{v.setPadding(0,insets.getSystemWindowInsetTop(),0,insets.getSystemWindowInsetBottom());return insets;});
         LinearLayout header=new LinearLayout(a);header.setGravity(Gravity.CENTER_VERTICAL);header.setPadding(a.dp(8),a.dp(8),a.dp(8),a.dp(8));
         header.addView(icon(R.drawable.ic_add,"New tab",()->{d.dismiss();a.add("kosher:home",true);}),new LinearLayout.LayoutParams(a.dp(48),a.dp(48)));
+        header.addView(icon(IconButton.SHIELD,"New incognito tab",()->{d.dismiss();a.addIncognito();}),new LinearLayout.LayoutParams(a.dp(48),a.dp(48)));
         TextView title=text("Tabs",20,a.ink());title.setTypeface(null,Typeface.BOLD);header.addView(title,new LinearLayout.LayoutParams(0,-2,1));
         header.addView(icon(IconButton.MENU,"Tab options",()->new AlertDialog.Builder(a).setItems(new String[]{"Recently closed tabs","Close all tabs","Settings"},(x,which)->{d.dismiss();if(which==0)a.features.closed();if(which==1)closeAll();if(which==2)new BrowserSettings(a).show();}).show()),new LinearLayout.LayoutParams(a.dp(48),a.dp(48)));page.addView(header);
         TextView count=text(a.tabs.size()+" open tabs",14,a.accent());count.setPadding(a.dp(20),a.dp(8),a.dp(20),a.dp(16));page.addView(count);
@@ -236,11 +238,11 @@ final class BrowserUi {
                 int index=i+j;if(index>=snapshot.size()){row.addView(new View(a),new LinearLayout.LayoutParams(0,1,1));continue;}
                 MainActivity.Tab t=snapshot.get(index);LinearLayout card=column();GradientDrawable bg=rounded(surface(),12);
                 if(a.current()==t)bg.setStroke(a.dp(2),a.accent());card.setBackground(bg);card.setPadding(a.dp(2),a.dp(2),a.dp(2),a.dp(8));
-                LinearLayout top=new LinearLayout(a);top.setGravity(Gravity.CENTER_VERTICAL);TextView name=text(t.title,14,a.ink());name.setSingleLine();name.setEllipsize(android.text.TextUtils.TruncateAt.END);name.setPadding(a.dp(10),0,0,0);top.addView(name,new LinearLayout.LayoutParams(0,a.dp(44),1));
+                LinearLayout top=new LinearLayout(a);top.setGravity(Gravity.CENTER_VERTICAL);TextView name=text((t.incognito?a.tr("Incognito")+" · ":"")+t.title,14,a.ink());name.setSingleLine();name.setEllipsize(android.text.TextUtils.TruncateAt.END);name.setPadding(a.dp(10),0,0,0);top.addView(name,new LinearLayout.LayoutParams(0,a.dp(44),1));
                 top.addView(icon(R.drawable.ic_close,"Close "+t.title,()->{d.dismiss();a.closeTab(t);tabs();}),new LinearLayout.LayoutParams(a.dp(44),a.dp(44)));card.addView(top);
                 FrameLayout preview=new FrameLayout(a);preview.setBackground(rounded(low(),8));
                 if(t.preview!=null){ImageView image=new ImageView(a);image.setImageBitmap(t.preview);image.setScaleType(ImageView.ScaleType.CENTER_CROP);preview.addView(image,new FrameLayout.LayoutParams(-1,-1));}
-                else {TextView placeholder=text(t.home?"Kosher\nBrowsing":host(t.url),18,muted());placeholder.setGravity(Gravity.CENTER);preview.addView(placeholder,new FrameLayout.LayoutParams(-1,-1));}
+                else {TextView placeholder=text(t.incognito?"Incognito":(t.home?"Kosher\nBrowsing":host(t.url)),18,muted());placeholder.setGravity(Gravity.CENTER);preview.addView(placeholder,new FrameLayout.LayoutParams(-1,-1));}
                 setAction(preview,"Open tab "+t.title,()->{d.dismiss();a.switchTo(a.tabs.indexOf(t));});card.addView(preview,new LinearLayout.LayoutParams(-1,a.dp(grid?164:120)));
                 TextView site=text(t.home?"Home":host(t.url),12,muted());site.setSingleLine();site.setEllipsize(android.text.TextUtils.TruncateAt.END);site.setPadding(a.dp(10),a.dp(8),a.dp(10),0);card.addView(site);
                 setAction(name,"Open tab "+t.title,()->{d.dismiss();a.switchTo(a.tabs.indexOf(t));});
@@ -249,7 +251,34 @@ final class BrowserUi {
         }
         TextView add=text("New tab",16,a.dark?0xff202124:Color.WHITE);add.setTypeface(null,Typeface.BOLD);add.setGravity(Gravity.CENTER);add.setBackground(ripple(a.accent(),24));add.setOnClickListener(v->{d.dismiss();a.add("kosher:home",true);});add.setContentDescription("New tab");
         LinearLayout.LayoutParams np=new LinearLayout.LayoutParams(-1,a.dp(48));np.setMargins(a.dp(20),a.dp(12),a.dp(20),a.dp(16));page.addView(add,np);
-        d.setContentView(page);d.show();Window w=d.getWindow();if(w!=null){w.setBackgroundDrawableResource(android.R.color.transparent);w.setLayout(-1,-1);w.setStatusBarColor(background());w.setNavigationBarColor(background());w.getDecorView().setSystemUiVisibility(a.dark?0:View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);}page.requestApplyInsets();
+        d.setContentView(page);d.show();Window w=d.getWindow();if(w!=null){for(MainActivity.Tab t:a.tabs)if(t.incognito){w.addFlags(WindowManager.LayoutParams.FLAG_SECURE);break;}w.setBackgroundDrawableResource(android.R.color.transparent);w.setLayout(-1,-1);w.setStatusBarColor(background());w.setNavigationBarColor(background());w.getDecorView().setSystemUiVisibility(a.dark?0:View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);}page.requestApplyInsets();
+    }
+    void history(){
+        Dialog d=new Dialog(a);d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LinearLayout page=column();page.setBackgroundColor(background());BrowserLanguages.direction(a,page);
+        page.setOnApplyWindowInsetsListener((v,insets)->{v.setPadding(0,insets.getSystemWindowInsetTop(),0,insets.getSystemWindowInsetBottom());return insets;});
+        LinearLayout header=new LinearLayout(a);header.setGravity(Gravity.CENTER_VERTICAL);
+        header.addView(icon(R.drawable.ic_close,"Done",d::dismiss),new LinearLayout.LayoutParams(a.dp(48),a.dp(56)));
+        TextView title=text("History",22,a.ink());header.addView(title,new LinearLayout.LayoutParams(0,-2,1));
+        header.addView(icon(R.drawable.ic_close,"Clear history",()->new AlertDialog.Builder(a).setTitle(a.tr("Clear history?")).setPositiveButton(a.tr("Clear"),(x,w)->{a.prefs.edit().remove("history").apply();d.dismiss();history();}).setNegativeButton(a.tr("Cancel"),null).show()),new LinearLayout.LayoutParams(a.dp(48),a.dp(56)));page.addView(header);
+        EditText search=new EditText(a);search.setSingleLine();search.setTextColor(a.ink());search.setHintTextColor(muted());search.setHint(a.tr("Search history"));search.setPadding(a.dp(20),0,a.dp(20),0);page.addView(search,new LinearLayout.LayoutParams(-1,a.dp(56)));
+        ScrollView scroll=new ScrollView(a);LinearLayout cards=column();cards.setPadding(a.dp(12),a.dp(12),a.dp(12),a.dp(12));scroll.addView(cards);page.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
+        Runnable refresh=()->{cards.removeAllViews();JSONArray saved=a.features.array("history");String q=search.getText().toString().toLowerCase(Locale.ROOT);LinearLayout row=null;int count=0;
+            for(int i=0;i<saved.length();i++){JSONObject item=saved.optJSONObject(i);if(item==null)continue;String url=item.optString("url"),name=item.optString("title",url);if(!(name+" "+url).toLowerCase(Locale.ROOT).contains(q))continue;
+                if(count%2==0){row=new LinearLayout(a);row.setBaselineAligned(false);cards.addView(row);}count++;
+                LinearLayout card=column();card.setPadding(a.dp(12),a.dp(12),a.dp(12),a.dp(12));card.setBackground(rounded(surface(),12));
+                TextView label=text(name,15,a.ink());label.setMaxLines(2);label.setMinHeight(a.dp(44));card.addView(label);
+                TextView site=text(host(url),18,a.accent());site.setGravity(Gravity.CENTER);card.addView(site,new LinearLayout.LayoutParams(-1,a.dp(72)));
+                TextView address=text(url,12,muted());address.setMaxLines(2);card.addView(address);
+                TextView date=text(android.text.format.DateFormat.getMediumDateFormat(a).format(new java.util.Date(item.optLong("time"))),12,muted());date.setPadding(0,a.dp(8),0,0);card.addView(date);
+                card.setContentDescription(name+" "+url);card.setOnClickListener(v->{d.dismiss();a.add(url,true);});card.setFocusable(true);
+                card.setOnLongClickListener(v->{new AlertDialog.Builder(a).setItems(new String[]{a.tr("Open in incognito"),a.tr("Delete")},(x,w)->{if(w==0){d.dismiss();a.add(url,true,false,true);}else{JSONArray next=new JSONArray();JSONArray old=a.features.array("history");for(int n=0;n<old.length();n++){JSONObject o=old.optJSONObject(n);if(o!=null&&!url.equals(o.optString("url")))next.put(o);}a.prefs.edit().putString("history",next.toString()).apply();d.dismiss();history();}}).show();return true;});
+                LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(0,-2,1);cp.setMargins(a.dp(4),a.dp(4),a.dp(4),a.dp(8));row.addView(card,cp);
+            }
+            if(count==0){TextView empty=text("No history found",16,muted());empty.setPadding(a.dp(16),a.dp(24),a.dp(16),0);cards.addView(empty);}else if(count%2==1)row.addView(new View(a),new LinearLayout.LayoutParams(0,1,1));
+        };
+        search.addTextChangedListener(new android.text.TextWatcher(){public void beforeTextChanged(CharSequence s,int st,int c,int after){}public void onTextChanged(CharSequence s,int st,int before,int c){refresh.run();}public void afterTextChanged(android.text.Editable e){}});refresh.run();
+        d.setContentView(page);d.show();Window w=d.getWindow();if(w!=null){w.setLayout(-1,-1);w.setStatusBarColor(background());w.setNavigationBarColor(background());if(a.current()!=null&&a.current().incognito)w.addFlags(WindowManager.LayoutParams.FLAG_SECURE);}page.requestApplyInsets();
     }
     void closeAll(){new AlertDialog.Builder(a).setTitle("Close all tabs?").setMessage("You can restore recently closed pages from the tab tray.").setPositiveButton("Close all",(d,w)->{
         a.web.releaseSession();for(MainActivity.Tab t:new ArrayList<>(a.tabs)){a.features.remember(t);if(!DownloadService.isPinned(t.session))t.session.close();else DownloadService.detach(t.session);}a.tabs.clear();a.selected=0;a.add("kosher:home",true);
