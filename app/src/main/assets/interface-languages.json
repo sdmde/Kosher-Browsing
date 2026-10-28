@@ -122,7 +122,16 @@
     "Open in incognito": "פתיחה בסתר",
     "Search history": "חיפוש בהיסטוריה",
     "No history found": "לא נמצאה היסטוריה",
-    "Downloads are disabled in incognito": "הורדות מושבתות בגלישה בסתר"
+    "Downloads are disabled in incognito": "הורדות מושבתות בגלישה בסתר",
+    "Features": "תכונות",
+    "General": "כללי",
+    "Display": "תצוגה",
+    "Privacy": "פרטיות",
+    "Your browsing": "הגלישה שלך",
+    "About": "אודות",
+    "Appearance": "מראה",
+    "Search engines": "מנועי חיפוש",
+    "Browser theme": "ערכת נושא לדפדפן"
   },
   "ar": {
     "Done": "تم",
@@ -247,7 +256,16 @@
     "Open in incognito": "فتح في وضع التصفح المتخفي",
     "Search history": "البحث في السجل",
     "No history found": "لم يتم العثور على سجل",
-    "Downloads are disabled in incognito": "التنزيلات معطلة في وضع التصفح المتخفي"
+    "Downloads are disabled in incognito": "التنزيلات معطلة في وضع التصفح المتخفي",
+    "Features": "الميزات",
+    "General": "عام",
+    "Display": "العرض",
+    "Privacy": "الخصوصية",
+    "Your browsing": "تصفحك",
+    "About": "حول",
+    "Appearance": "المظهر",
+    "Search engines": "محركات البحث",
+    "Browser theme": "مظهر المتصفح"
   },
   "es": {
     "Cancel": "Cancelar",
@@ -370,7 +388,16 @@
     "Open in incognito": "Abrir en incógnito",
     "Search history": "Buscar en el historial",
     "No history found": "No se encontró historial",
-    "Downloads are disabled in incognito": "Las descargas están desactivadas en incógnito"
+    "Downloads are disabled in incognito": "Las descargas están desactivadas en incógnito",
+    "Features": "Funciones",
+    "General": "General",
+    "Display": "Pantalla",
+    "Privacy": "Privacidad",
+    "Your browsing": "Tu navegación",
+    "About": "Acerca de",
+    "Appearance": "Apariencia",
+    "Search engines": "Motores de búsqueda",
+    "Browser theme": "Tema del navegador"
   },
   "fr": {
     "Cancel": "Annuler",
@@ -492,6 +519,15 @@
     "Open in incognito": "Ouvrir en navigation privée",
     "Search history": "Rechercher dans l’historique",
     "No history found": "Aucun historique trouvé",
-    "Downloads are disabled in incognito": "Les téléchargements sont désactivés en navigation privée"
+    "Downloads are disabled in incognito": "Les téléchargements sont désactivés en navigation privée",
+    "Features": "Fonctionnalités",
+    "General": "Général",
+    "Display": "Affichage",
+    "Privacy": "Confidentialité",
+    "Your browsing": "Votre navigation",
+    "About": "À propos",
+    "Appearance": "Apparence",
+    "Search engines": "Moteurs de recherche",
+    "Browser theme": "Thème du navigateur"
   }
 }

@@ -1,10 +1,10 @@
 # Kosher Browsing
 
-An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.9 (version code 16)**. Package: `org.shield.browser`. Developer: sdmde.
+An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.10 (version code 17)**. Package: `org.shield.browser`. Developer: sdmde.
 
 ## Features
 
-- Chrome-style native toolbar, tab grid, light/dark themes and settings. The supplied blue logo is retained; this is not a repackaged Chrome app.
+- Chrome-style native toolbar and tab grid, plus Brave-inspired settings with leading icons, purple accents, grouped sections and light/dark themes. The supplied blue logo is retained; this is not a repackaged Chrome app.
 - Persistent Gecko profile for cookies and website sign-ins; saved tabs, browsing history, bookmarks, folders and bookmark import/export.
 - Fixed DuckDuckGo address-bar search and mandatory Safe Search parameters on supported search routes.
 - On-device image processing: configured skin-color pixels receive grayscale and strong blur with a 15-pixel surrounding mask. A 40×40 region becomes a 70×70 mask. Images stay hidden until verification succeeds; decoding, size, request and filtering failures stay blocked. Recognized CAPTCHA providers have scoped challenge exceptions.
@@ -56,3 +56,11 @@ The network rules cover 2.9 domain-list updates, recognizable random/anonymous/s
 Detected hosts are remembered only in extension memory until the browser process stops, separately for private and normal browsing. Later requests and WebSockets from those hosts are blocked. There is no external classification service or automatic list update. Content detection is heuristic: an undisclosed or deliberately disguised service can still evade it. Ordinary calling services and articles are not blocked merely for mentioning chat.
 
 The list was checked against service-owned pages on 2026-10-23: [TalkWithStranger](https://randomchat.talkwithstranger.com/chatrooms/), [ChatMatch](https://www.chatmatch.app/), [Meetgle](https://meetgle.com/video-chat/), [Chatous](https://chatous.com/), [Chatib](https://www.chatib.us/) and [Chatingly](https://chatingly.com/).
+
+## Version 2.10 settings
+
+The settings interface adapts the supplied Brave APK with Features, General and Display groups. Existing search, language, appearance, privacy and download actions remain functional. Brave account, Wallet, Rewards, News and VPN services are not included.
+
+![Settings](docs/settings-2.10.png)
+
+[Download the latest release](https://github.com/sdmde/Kosher-Browsing/releases/tag/v2.10). The ARM64 test APK uses the existing test signing certificate; Google Play users should update through their Play track.

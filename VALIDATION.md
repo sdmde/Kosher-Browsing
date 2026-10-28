@@ -15,3 +15,5 @@ Private image verification tests confirm cookie omission while ordinary image re
 Emulator checks on Android 11/API 30 x86_64: ordinary page allowed; safety article allowed; Meetgle blocked; random-video-chat.invalid blocked; HTTP redirect to Meetgle blocked; dynamically injected unknown chat UI blocked; private ordinary page allowed despite normal detected-host restriction; private chat clone blocked; subsequent private requests to that detected host blocked. No physical-device, camera-call, translation, payment or account sign-in tests were performed.
 
 705 policy assertions and the detected-site request/WebSocket/private-scope regression test passed.
+
+Version 2.10: settings-only update. Release build and Android lint passed (0 errors, 25 warnings); bundletool validation, AAB JAR signature and ARM64 APK signature checks passed. API 30 emulator checks covered root categories, protection details, appearance navigation, light/dark switching and language settings. No physical-device testing. Existing protection asset hashes matched the built AAB. Earlier policy/native checks apply to unchanged components and were not rerun for this UI update.

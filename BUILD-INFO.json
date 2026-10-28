@@ -1,52 +1,19 @@
 {
-  "version": "2.9",
-  "versionCode": 16,
+  "version": "2.10",
+  "versionCode": 17,
   "applicationId": "org.shield.browser",
+  "settingsReference": "Brave Android 1.89.145",
+  "emulatorTests": {
+    "api": 30,
+    "rootCategories": true,
+    "protectionNavigation": true,
+    "appearanceNavigation": true,
+    "lightDarkSwitching": true,
+    "languageSettings": true
+  },
+  "physicalDeviceTested": false,
+  "lint": "0 errors, 25 warnings",
   "minSdk": 26,
   "targetSdk": 36,
-  "compileSdk": 37,
-  "releaseDebuggable": false,
-  "uploadCertificateSha256": "84b60c5f25305f1d018ef4d3b29d68eef43c5fb1d5bd4681cb6db37b48ff9d2c",
-  "phoneTestCertificateSha256": "2de1718d8f7abc6ed779a67c0bc664a92744933d8b0bc17823edf366fa1a0171",
-  "googlePlayAppSigningEnrolled": null,
-  "uploadedToPlay": false,
-  "emulatorUsed": true,
-  "deviceTested": false,
-  "validation": {
-    "releaseBuild": true,
-    "fullReleaseLint": {
-      "errors": 0,
-      "warningSummary": "0 errors, 24 warnings"
-    },
-    "bundletoolVersion": "1.18.3",
-    "bundletoolValidation": true,
-    "jarSignatureVerified": true,
-    "allBundlePayloadEntrySignersVerified": true,
-    "requestedNativePageAlignment": "PAGE_ALIGNMENT_16K",
-    "all64BitElfLoadSegmentsAligned16k": true,
-    "nativeLibraryCount": 39,
-    "generatedArm64Api36ApksSignatureAndZipAlignmentVerified": false,
-    "backHandlerJvmTests": false,
-    "protectionAndImageDomTests": true,
-    "captchaAndRandomChatRequestTests": true,
-    "remoteImagesFailClosed": true,
-    "apkMetadataAndContentPolicyTests": true,
-    "mainLabelLanguageCoverage": true,
-    "paletteContrast": true,
-    "randomChatVariantAndUnrelatedSiteTests": true
-  },
-  "artifacts": [
-    {
-      "file": "KosherBrowsing-v2.9-play.aab",
-      "bytes": 253969021,
-      "sha256": "334dce4869e789f44c4b753a1626bade4ccc68cb9af165d5a9fdcc2b1941f195",
-      "purpose": "Google Play upload"
-    },
-    {
-      "file": "KosherBrowsing-v2.9-arm64-test.apk",
-      "bytes": 109962716,
-      "sha256": "74f4dbba4fbeb3d256263b3e586d052c9051f45d0b62d24f967b0d519edefc6e",
-      "purpose": "Sideload phone testing, debug certificate retained"
-    }
-  ]
+  "uploadedToPlay": false
 }

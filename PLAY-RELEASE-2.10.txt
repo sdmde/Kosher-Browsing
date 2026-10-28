@@ -1,0 +1,5 @@
+Kosher Browsing 2.10
+
+- Updated settings with Brave-inspired icon rows, purple accents and grouped sections.
+- Restyled appearance, privacy and language pages for light and dark themes.
+- Retained all existing browser settings and protections.

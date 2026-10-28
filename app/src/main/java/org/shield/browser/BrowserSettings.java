@@ -36,7 +36,7 @@ import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
-/** Original native preferences adapted to the supplied Chrome settings structure. */
+/** Native preferences adapted to the supplied Brave settings layout. */
 final class BrowserSettings {
     private final MainActivity a;
     private Dialog dialog;
@@ -77,9 +77,10 @@ final class BrowserSettings {
         styleWindow();
     }
 
-    private int bg() { return a.dark ? 0xff202124 : 0xffffffff; }
-    private int outline() { return a.dark ? 0xff3c4043 : 0xffe8eaed; }
-    private int secondary() { return a.dark ? 0xffbdc1c6 : 0xff5f6368; }
+    private int bg() { return a.dark ? 0xff17171f : 0xffffffff; }
+    private int accent() { return a.dark ? 0xffa0a5eb : 0xff4c54d2; }
+    private int outline() { return a.dark ? 0xff32323e : 0xffededf2; }
+    private int secondary() { return a.dark ? 0xffc2c4cf : 0xff636577; }
     private int dp(int value) { return a.dp(value); }
 
     private void styleWindow() {
@@ -123,10 +124,10 @@ final class BrowserSettings {
         back.setBackground(ripple());
         back.setOnClickListener(v -> back());
         header.addView(back, new LinearLayout.LayoutParams(dp(48), dp(56)));
-        TextView title = text(stack.peek(), 22, a.ink());
+        TextView title = text(stack.peek(), 20, a.ink());
         title.setTypeface(null, Typeface.NORMAL);
         title.setPadding(dp(12), 0, 0, 0);
-        header.addView(title, new LinearLayout.LayoutParams(0, dp(64), 1));
+        header.addView(title, new LinearLayout.LayoutParams(0, dp(56), 1));
         title.setGravity(Gravity.CENTER_VERTICAL);
         shell.addView(header);
         View line = new View(a);
@@ -146,7 +147,7 @@ final class BrowserSettings {
             case "Search": search(); break;
             case "Tabs": tabs(); break;
             case "Home page": home(); break;
-            case "Customize": customize(); break;
+            case "Customize": case "Appearance": customize(); break;
             case "Passwords and autofill": passwords(); break;
             case "Accessibility": accessibility(); break;
             case "Language": case "Languages": language(); break;
@@ -170,9 +171,10 @@ final class BrowserSettings {
     }
 
     private void group(String name) {
-        TextView label = text(name, 14, a.accent());
+        if (page.getChildCount() > 0) { View divider = new View(a); divider.setBackgroundColor(outline()); LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, dp(1)); p.topMargin = dp(12); page.addView(divider, p); }
+        TextView label = text(name, 13, accent());
         label.setTypeface(null, Typeface.BOLD);
-        label.setPadding(dp(24), dp(22), dp(24), dp(8));
+        label.setPadding(dp(20), dp(20), dp(20), dp(10));
         page.addView(label);
     }
 
@@ -187,8 +189,9 @@ final class BrowserSettings {
         LinearLayout row = new LinearLayout(a);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
-        row.setMinimumHeight(dp(summary == null ? 58 : 76));
-        row.setPadding(dp(24), dp(13), dp(20), dp(13));
+        row.setMinimumHeight(dp(summary == null ? 56 : 72));
+        row.setPadding(dp(20), dp(12), dp(20), dp(12));
+        if ("Settings".equals(stack.peek())) { SettingsIcon icon = new SettingsIcon(title); LinearLayout.LayoutParams ip = new LinearLayout.LayoutParams(dp(24), dp(24)); ip.setMarginEnd(dp(28)); row.addView(icon, ip); }
         if (action != null) {
             row.setBackground(ripple());
             row.setFocusable(true);
@@ -196,16 +199,16 @@ final class BrowserSettings {
         }
         LinearLayout labels = new LinearLayout(a);
         labels.setOrientation(LinearLayout.VERTICAL);
-        TextView name = text(title, 17, a.ink());
+        TextView name = text(title, 16, a.ink());
         labels.addView(name);
         if (summary != null) {
-            TextView description = text(summary, 14, secondary());
+            TextView description = text(summary, 13, secondary());
             description.setPadding(0, dp(4), 0, 0);
             description.setLineSpacing(dp(2), 1);
             labels.addView(description);
         }
         row.addView(labels, new LinearLayout.LayoutParams(0, -2, 1));
-        if (end != null) {
+        if (end != null && !("Settings".equals(stack.peek()) && end instanceof Glyph && ((Glyph)end).kind == Glyph.NEXT)) {
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-2, -2);
             p.setMarginStart(dp(16));
             row.addView(end, p);
@@ -228,7 +231,7 @@ final class BrowserSettings {
 
     private ColorStateList controlColors() {
         return new ColorStateList(new int[][] { new int[] { android.R.attr.state_checked }, new int[] {} },
-                new int[] { a.accent(), secondary() });
+                new int[] { accent(), secondary() });
     }
 
     private void toggle(String title, String summary, String pref, boolean fallback, boolean rebuild, Runnable extra) {
@@ -258,30 +261,34 @@ final class BrowserSettings {
     }
 
     private void main() {
-        group("Basics");
-        item("Search engine", "DuckDuckGo", () -> open("Search"));
-        item("Passwords and autofill", "Android password manager", () -> open("Passwords and autofill"));
+        group("Features");
+        item("Browsing protections", "Always on", () -> open("Browsing protections"));
         item("Privacy and security", "Site data and browsing protections", () -> open("Privacy and data"));
-        item("Delete browsing data", null, () -> open("Delete browsing data"));
-        item("Notifications", null, () -> open("Notifications"));
-        item("Theme", a.prefs.getString("theme_mode","system"), () -> open("Customize"));
-        group("Advanced");
-        item("Home page", null, () -> open("Home page"));
-        item("Tabs", null, () -> open("Tabs"));
+        item("Protection dashboard", null, a.features::dashboard);
+        group("General");
+        item("Search engines", "DuckDuckGo", () -> open("Search"));
+        item("Passwords and autofill", null, () -> open("Passwords and autofill"));
+        link("Default browser", null, a.features::defaultBrowser);
         item("Languages", BrowserLanguages.appName(a), () -> open("Languages"));
-        item("Accessibility", null, () -> open("Accessibility"));
-        item("Site settings", null, () -> open("Site permissions"));
         item("Downloads", "Open Android file manager", () -> leave(a.downloads::showDownloads));
         item("Download transfers", "Pause or resume downloads", () -> leave(a.downloads::showTransfers));
+        item("Open links in apps", "Web links stay in this browser", () -> open("Open links in apps"));
+        group("Display");
+        item("Appearance", null, () -> open("Appearance"));
+        item("Home page", null, () -> open("Home page"));
+        item("Tabs", null, () -> open("Tabs"));
+        item("Accessibility", null, () -> open("Accessibility"));
+        group("Privacy");
+        item("Site settings", null, () -> open("Site permissions"));
+        item("HTTPS-Only Mode", null, () -> open("HTTPS-Only Mode"));
+        item("Delete browsing data", null, () -> open("Delete browsing data"));
+        item("Notifications", null, () -> open("Notifications"));
+        group("Your browsing");
         item("Bookmarks", null, () -> leave(a.features::bookmarks));
         item("History", null, () -> leave(a::showHistory));
-        item("Open links in apps", "Web links stay in this browser", () -> open("Open links in apps"));
-        link("Default browser", null, a.features::defaultBrowser);
-        group("Kosher Browsing");
-        item("Browsing protections", "Always on", () -> open("Browsing protections"));
-        item("HTTPS-Only Mode", null, () -> open("HTTPS-Only Mode"));
+        group("About");
         item("Extensions", "Built-in browsing protections", () -> open("Extensions"));
-        item("About Kosher Browsing", "Version 2.7", () -> open("About Kosher Browsing"));
+        item("About Kosher Browsing", "Version 2.10", () -> open("About Kosher Browsing"));
     }
 
     private void search() {
@@ -324,7 +331,7 @@ final class BrowserSettings {
     }
 
     private void customize() {
-        group("Theme");
+        group("Browser theme");
         String mode = a.prefs.getString("theme_mode", a.prefs.contains("dark") ? (a.prefs.getBoolean("dark", false) ? "dark" : "light") : "system");
         theme("Follow device theme", "Use Android's current light or dark appearance", "system", mode);
         theme("Light", null, "light", mode);
@@ -369,8 +376,8 @@ final class BrowserSettings {
         SeekBar scale = new SeekBar(a);
         scale.setMax(150);
         scale.setProgress(Math.max(0, Math.min(150, a.prefs.getInt("font_percent", 100) - 50)));
-        scale.setProgressTintList(ColorStateList.valueOf(a.accent()));
-        scale.setThumbTintList(ColorStateList.valueOf(a.accent()));
+        scale.setProgressTintList(ColorStateList.valueOf(accent()));
+        scale.setThumbTintList(ColorStateList.valueOf(accent()));
         scale.setContentDescription("Web text size, 50 to 200 percent");
         scale.setEnabled(!automatic);
         if (automatic) scale.setAlpha(.45f);
@@ -482,7 +489,7 @@ final class BrowserSettings {
         Button clear = new Button(a);
         clear.setText("Delete browsing data");
         clear.setTextColor(a.dark ? 0xff271345 : 0xffffffff);
-        clear.setBackgroundTintList(ColorStateList.valueOf(a.accent()));
+        clear.setBackgroundTintList(ColorStateList.valueOf(accent()));
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, dp(52));
         p.setMargins(dp(24), dp(24), dp(24), dp(8));
         page.addView(clear, p);
@@ -593,7 +600,7 @@ final class BrowserSettings {
         note("This app uses Mozilla GeckoView, which is licensed under the Mozilla Public License 2.0 and includes components with their own notices. Gecko's packaged license information remains in the engine distribution.");
         link("Mozilla Public License 2.0", "mozilla.org/MPL/2.0", () -> leave(() -> a.add("https://www.mozilla.org/MPL/2.0/", true)));
         group("Interface reference");
-        note("The interface follows the supplied Chrome APK's toolbar, menu, tab grid and language-settings structure. UI code and geometric icons are original; common localized labels were adapted from the supplied resource tables. This app uses GeckoView and remains independent of Google Chrome.");
+        note("The settings layout follows the supplied Brave Android APK: icon rows, category order, typography and purple color roles. Native Java controls and geometric icons are original. The browser uses GeckoView; Brave accounts, Rewards, Wallet and VPN services are not included. Earlier toolbar and language layouts use the supplied Chrome reference.");
         group("Bundled AdBlock rule data");
         item("GNU General Public License 3.0", "License notice included in this app", () -> showAsset("COPYING-GPL-3.0.txt", "GNU GPL 3.0"));
         note("The project's THIRD-PARTY.md lists bundled rule-list origins and attribution. Rule snapshots are distributed with the application source.");
@@ -626,6 +633,37 @@ final class BrowserSettings {
         }
     }
 
+    /** Original geometric icons matching the reference preference categories. */
+    private final class SettingsIcon extends View {
+        final String label; final Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+        SettingsIcon(String title) { super(a); label=title; setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO); }
+        protected void onDraw(Canvas c) {
+            super.onDraw(c); c.save(); c.scale(getWidth()/24f,getHeight()/24f);
+            p.setColor(secondary()); p.setStrokeWidth(1.8f); p.setStyle(Paint.Style.STROKE); p.setStrokeCap(Paint.Cap.ROUND); p.setStrokeJoin(Paint.Join.ROUND);
+            Path x=new Path();
+            if(label.contains("protection") || label.contains("Privacy") || label.contains("HTTPS")) {
+                x.moveTo(12,2);x.lineTo(21,6);x.lineTo(20,14);x.quadTo(18,20,12,23);x.quadTo(6,20,4,14);x.lineTo(3,6);x.close();c.drawPath(x,p);c.drawLine(8,12,11,15,p);c.drawLine(11,15,16,9,p);
+            } else if(label.contains("Search")) {c.drawCircle(10,10,6,p);c.drawLine(15,15,21,21,p);
+            } else if(label.contains("Password")) {c.drawCircle(7,10,4,p);c.drawLine(11,10,22,10,p);c.drawLine(18,10,18,14,p);c.drawLine(21,10,21,13,p);
+            } else if(label.contains("Language")) {c.drawCircle(12,12,10,p);c.drawOval(7,2,17,22,p);c.drawLine(2,12,22,12,p);c.drawLine(4,7,20,7,p);c.drawLine(4,17,20,17,p);
+            } else if(label.contains("Download")) {c.drawLine(12,3,12,16,p);x.moveTo(7,11);x.lineTo(12,16);x.lineTo(17,11);c.drawPath(x,p);x.reset();x.moveTo(4,17);x.lineTo(4,21);x.lineTo(20,21);x.lineTo(20,17);c.drawPath(x,p);
+            } else if(label.equals("Appearance")) {c.drawOval(2,3,22,21,p);c.drawCircle(7,10,1,p);c.drawCircle(11,7,1,p);c.drawCircle(16,8,1,p);c.drawCircle(18,13,1,p);c.drawCircle(10,16,2,p);
+            } else if(label.equals("Home page")) {x.moveTo(2,11);x.lineTo(12,3);x.lineTo(22,11);x.moveTo(5,10);x.lineTo(5,21);x.lineTo(10,21);x.lineTo(10,15);x.lineTo(14,15);x.lineTo(14,21);x.lineTo(19,21);x.lineTo(19,10);c.drawPath(x,p);
+            } else if(label.equals("Tabs") || label.contains("browser")) {c.drawRoundRect(3,3,21,21,2,2,p);c.drawLine(3,8,21,8,p);
+            } else if(label.contains("Accessibility")) {c.drawCircle(12,4,2,p);c.drawLine(3,9,21,9,p);c.drawLine(12,7,12,15,p);c.drawLine(12,15,7,22,p);c.drawLine(12,15,17,22,p);
+            } else if(label.contains("Bookmark")) {x.moveTo(6,3);x.lineTo(18,3);x.lineTo(18,22);x.lineTo(12,17);x.lineTo(6,22);x.close();c.drawPath(x,p);
+            } else if(label.equals("History")) {c.drawArc(3,3,21,21,-80,300,false,p);c.drawLine(12,6,12,12,p);c.drawLine(12,12,16,14,p);x.moveTo(2,4);x.lineTo(2,10);x.lineTo(8,10);c.drawPath(x,p);
+            } else if(label.contains("Delete")) {c.drawLine(4,6,20,6,p);c.drawLine(9,3,15,3,p);x.moveTo(6,6);x.lineTo(7,21);x.lineTo(17,21);x.lineTo(18,6);c.drawPath(x,p);c.drawLine(10,10,10,17,p);c.drawLine(14,10,14,17,p);
+            } else if(label.contains("Notifications")) {x.moveTo(4,18);x.lineTo(6,15);x.lineTo(6,9);x.cubicTo(6,1,18,1,18,9);x.lineTo(18,15);x.lineTo(20,18);x.close();c.drawPath(x,p);c.drawArc(10,18,14,23,0,180,false,p);
+            } else if(label.contains("dashboard")) {c.drawLine(4,21,4,12,p);c.drawLine(12,21,12,3,p);c.drawLine(20,21,20,8,p);
+            } else if(label.contains("Site")) {c.drawLine(3,6,21,6,p);c.drawLine(3,12,21,12,p);c.drawLine(3,18,21,18,p);c.drawCircle(8,6,2,p);c.drawCircle(16,12,2,p);c.drawCircle(10,18,2,p);
+            } else if(label.contains("links")) {c.drawRoundRect(2,9,14,17,4,4,p);c.drawRoundRect(10,5,22,13,4,4,p);
+            } else if(label.contains("Extensions")) {c.drawRoundRect(3,6,21,22,2,2,p);c.drawCircle(12,5,3,p);c.drawCircle(20,14,3,p);
+            } else {c.drawCircle(12,12,10,p);c.drawLine(12,11,12,17,p);c.drawCircle(12,7,0.7f,p);}
+            c.restore();
+        }
+    }
+
     /** Small geometric controls keep navigation shapes distinct from their backgrounds. */
     private final class Glyph extends View {
         static final int NEXT = 1, BACK = 2, LOCK = 3, EXTERNAL = 4, CHECK = 5;
@@ -641,7 +679,7 @@ final class BrowserSettings {
             canvas.translate((getWidth() - dp(24)) / 2f, (getHeight() - dp(24)) / 2f);
             canvas.scale(dp(24) / 24f, dp(24) / 24f);
             if(getLayoutDirection()==View.LAYOUT_DIRECTION_RTL&&(kind==BACK||kind==NEXT)){canvas.translate(24,0);canvas.scale(-1,1);}
-            paint.setColor(kind == LOCK || kind == CHECK ? a.accent() : secondary());
+            paint.setColor(kind == LOCK || kind == CHECK ? accent() : secondary());
             paint.setStrokeWidth(2);
             paint.setStrokeCap(Paint.Cap.ROUND);
             paint.setStrokeJoin(Paint.Join.ROUND);
