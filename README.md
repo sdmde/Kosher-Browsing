@@ -1,10 +1,10 @@
 # Kosher Browsing
 
-An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.10 (version code 17)**. Package: `org.shield.browser`. Developer: sdmde.
+An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.11 (version code 18)**. Package: `org.shield.browser`. Developer: sdmde.
 
 ## Features
 
-- Chrome-style native toolbar and tab grid, plus Brave-inspired settings with leading icons, purple accents, grouped sections and light/dark themes. The supplied blue logo is retained; this is not a repackaged Chrome app.
+- Screenshot-inspired lavender browser interface: rounded menus, tab search, tab groups, multi-selection, a grouped-tab strip, and light/dark themes. Settings retain the grouped preference layout. The supplied blue logo is retained; this is not a repackaged Chrome app.
 - Persistent Gecko profile for cookies and website sign-ins; saved tabs, browsing history, bookmarks, folders and bookmark import/export.
 - Fixed DuckDuckGo address-bar search and mandatory Safe Search parameters on supported search routes.
 - On-device image processing: configured skin-color pixels receive grayscale and strong blur with a 15-pixel surrounding mask. A 40×40 region becomes a 70×70 mask. Images stay hidden until verification succeeds; decoding, size, request and filtering failures stay blocked. Recognized CAPTCHA providers have scoped challenge exceptions.
@@ -57,10 +57,13 @@ Detected hosts are remembered only in extension memory until the browser process
 
 The list was checked against service-owned pages on 2026-10-23: [TalkWithStranger](https://randomchat.talkwithstranger.com/chatrooms/), [ChatMatch](https://www.chatmatch.app/), [Meetgle](https://meetgle.com/video-chat/), [Chatous](https://chatous.com/), [Chatib](https://www.chatib.us/) and [Chatingly](https://chatingly.com/).
 
-## Version 2.10 settings
+## Version 2.11 interface
 
-The settings interface adapts the supplied Brave APK with Features, General and Display groups. Existing search, language, appearance, privacy and download actions remain functional. Brave account, Wallet, Rewards, News and VPN services are not included.
+The browser now follows the supplied dark lavender screenshots: rounded overflow menus with quick actions, a searchable tab overview with regular/group views, group preview cards, a last-tab empty state, and a bottom strip for the current group. Use Tab options to create groups or select tabs. Groups can be renamed, ungrouped or closed. Normal group membership restores with saved tabs; private groups remain in memory and are never restored. Tab preview images stay in memory.
 
-![Settings](docs/settings-2.10.png)
+DuckDuckGo remains the fixed search engine. Google branding, Discover news and Gemini/AI Mode services are not added. Existing site/image protections and downloads remain in place. Existing explicit theme choices are kept; a new profile starts with the dark palette.
 
-[Download the latest release](https://github.com/sdmde/Kosher-Browsing/releases/tag/v2.10). The ARM64 test APK uses the existing test signing certificate; Google Play users should update through their Play track.
+![Browser menu](docs/browser-menu-2.11.png)
+![Tab groups](docs/group-2.11.png)
+
+[Download version 2.11](https://github.com/sdmde/Kosher-Browsing/releases/tag/v2.11).

@@ -1,0 +1,7 @@
+Kosher Browsing 2.11
+
+- Updated the browser to match the supplied dark lavender interface reference.
+- Added rounded menus with quick actions and a searchable tab overview.
+- Added tab groups with rename, ungroup, close, multi-selection and a bottom group strip.
+- Normal groups restore between launches; incognito groups are not saved.
+- Retained DuckDuckGo, existing settings and mandatory browsing protections.

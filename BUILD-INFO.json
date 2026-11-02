@@ -1,19 +1,29 @@
 {
-  "version": "2.10",
-  "versionCode": 17,
+  "version": "2.11",
+  "versionCode": 18,
   "applicationId": "org.shield.browser",
-  "settingsReference": "Brave Android 1.89.145",
-  "emulatorTests": {
-    "api": 30,
-    "rootCategories": true,
-    "protectionNavigation": true,
-    "appearanceNavigation": true,
-    "lightDarkSwitching": true,
-    "languageSettings": true
-  },
-  "physicalDeviceTested": false,
-  "lint": "0 errors, 25 warnings",
   "minSdk": 26,
   "targetSdk": 36,
-  "uploadedToPlay": false
+  "emulator": {
+    "api": 30,
+    "tabSearch": true,
+    "tabGrouping": true,
+    "groupPersistence": true,
+    "selection": true,
+    "closeAllEmptyState": true,
+    "newTabAfterEmpty": true
+  },
+  "groupChecks": {
+    "groupStrip": true,
+    "newGroupedTab": true,
+    "closeCurrentGroupedTab": true,
+    "privateGroupNotPersisted": true,
+    "normalGroupPersisted": true
+  },
+  "physicalDeviceTested": false,
+  "lint": "0 errors, 26 warnings",
+  "bundleValidated": true,
+  "bundleSignatureVerified": true,
+  "apkSignatureVerified": true,
+  "protectionAssetsMatch": true
 }

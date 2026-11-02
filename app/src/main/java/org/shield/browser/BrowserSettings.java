@@ -60,6 +60,8 @@ final class BrowserSettings {
         BrowserLanguages.apply(a);
     }
 
+    void showPage(String title) { show(); if (dialog != null) open(title); }
+
     void show() {
         if (dialog != null && dialog.isShowing()) return;
         dialog = new Dialog(a, a.dark ? R.style.KosherDark : R.style.KosherLight);
@@ -77,8 +79,8 @@ final class BrowserSettings {
         styleWindow();
     }
 
-    private int bg() { return a.dark ? 0xff17171f : 0xffffffff; }
-    private int accent() { return a.dark ? 0xffa0a5eb : 0xff4c54d2; }
+    private int bg() { return a.dark ? 0xff0d0d1b : 0xfffffbff; }
+    private int accent() { return a.dark ? 0xffced0ff : 0xff525ba0; }
     private int outline() { return a.dark ? 0xff32323e : 0xffededf2; }
     private int secondary() { return a.dark ? 0xffc2c4cf : 0xff636577; }
     private int dp(int value) { return a.dp(value); }
@@ -288,7 +290,7 @@ final class BrowserSettings {
         item("History", null, () -> leave(a::showHistory));
         group("About");
         item("Extensions", "Built-in browsing protections", () -> open("Extensions"));
-        item("About Kosher Browsing", "Version 2.10", () -> open("About Kosher Browsing"));
+        item("About Kosher Browsing", "Version 2.11", () -> open("About Kosher Browsing"));
     }
 
     private void search() {

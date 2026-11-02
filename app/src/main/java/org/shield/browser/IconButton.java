@@ -13,7 +13,7 @@ import android.widget.Button;
 /** Draws both the button and its symbol directly; no image or tint drawable is used. */
 public final class IconButton extends View {
     public static final int MENU=-1, SHIELD=-2, HISTORY=-3, DOWNLOAD=-4, SHARE=-5,
-        SEARCH=-6, CHEVRON=-7, GRID=-8, PAGE=-9, FULLSCREEN=-10, DESKTOP=-11;
+        SEARCH=-6, CHEVRON=-7, GRID=-8, PAGE=-9, FULLSCREEN=-10, DESKTOP=-11, TAB=-12, INCOGNITO=-13, GROUP=-14, SELECT=-15, DELETE=-16, NEW_TAB=-17, EDIT=-18, HELP=-19;
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Path path = new Path();
     private final float density;
@@ -74,6 +74,20 @@ public final class IconButton extends View {
             paint.setTextAlign(Paint.Align.CENTER);
             paint.setTextSize(count < 100 ? 10 : 7);
             canvas.drawText(count > 99 ? "99+" : String.valueOf(count),12,16,paint);
+        } else if(symbol==TAB || symbol==NEW_TAB) {
+            canvas.drawRoundRect(new RectF(3,3,21,21),4,4,paint);if(symbol==NEW_TAB){canvas.drawLine(12,7,12,17,paint);canvas.drawLine(7,12,17,12,paint);}
+        } else if(symbol==INCOGNITO) {
+            path.moveTo(3,10);path.lineTo(21,10);path.moveTo(6,10);path.lineTo(9,2);path.lineTo(12,4);path.lineTo(15,2);path.lineTo(18,10);canvas.drawPath(path,paint);canvas.drawCircle(7,18,4,paint);canvas.drawCircle(17,18,4,paint);canvas.drawLine(11,17,13,17,paint);
+        } else if(symbol==GROUP) {
+            canvas.drawRect(2,3,9,10,paint);canvas.drawRect(2,15,9,22,paint);canvas.drawRect(14,15,21,22,paint);path.moveTo(17,1);path.lineTo(23,7);path.lineTo(17,13);path.lineTo(11,7);path.close();canvas.drawPath(path,paint);
+        } else if(symbol==SELECT) {
+            canvas.drawRect(3,3,21,21,paint);path.moveTo(6,11);path.lineTo(11,16);path.lineTo(22,5);canvas.drawPath(path,paint);
+        } else if(symbol==DELETE) {
+            canvas.drawLine(4,5,20,5,paint);canvas.drawLine(9,2,15,2,paint);path.moveTo(6,5);path.lineTo(7,22);path.lineTo(17,22);path.lineTo(18,5);canvas.drawPath(path,paint);canvas.drawLine(10,9,10,18,paint);canvas.drawLine(14,9,14,18,paint);
+        } else if(symbol==EDIT) {
+            path.moveTo(3,16);path.lineTo(16,3);path.lineTo(21,8);path.lineTo(8,21);path.lineTo(3,22);path.close();canvas.drawPath(path,paint);
+        } else if(symbol==HELP) {
+            canvas.drawCircle(12,12,10,paint);canvas.drawArc(8,5,16,13,185,300,false,paint);canvas.drawLine(12,12,12,14,paint);canvas.drawCircle(12,18,.6f,paint);
         } else if (symbol == MENU) {
             paint.setStyle(Paint.Style.FILL);for(int i=0;i<3;i++)canvas.drawCircle(12,5+i*7,1.8f,paint);
         } else if(symbol == SHIELD) {

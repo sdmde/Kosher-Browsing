@@ -11,3 +11,7 @@ The JSON language dictionary is bundled in base assets and language splits are d
 ## Version 2.10 settings adaptation
 
 Reference: user-supplied Brave Android 1.89.145 APK. The brave_main_preferences.xml and brave_appearance_preferences.xml tables supply the category organization and preference layout. Native settings now use leading geometric icons, compact typography, flat rows and dividers, plus Brave-style purple light/dark accent roles. Features, General and Display sections map to functioning Kosher Browsing controls. Brave account, Wallet, Rewards, VPN and News integrations are not added. Settings icons and Java code are original. English, Hebrew, Arabic, Spanish and French category labels are included.
+
+## Version 2.11 screenshot adaptation
+
+Reference: four user-supplied Android browser screenshots dated November 2, 2026. The native Java implementation uses a near-black navy background, lavender surfaces, rounded popup menus, geometric controls, a segmented tab/group header, pill search, preview cards and an original empty-state drawing. Tab groups, selection and group-strip behavior are implemented locally using Gecko sessions. No Chrome binaries, logos, news feed or Google AI services are imported.
