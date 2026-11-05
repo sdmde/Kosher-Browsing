@@ -1,10 +1,10 @@
 # Kosher Browsing
 
-An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.11 (version code 18)**. Package: `org.shield.browser`. Developer: sdmde.
+An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.12 (version code 19)**. Package: `org.shield.browser`. Developer: sdmde.
 
 ## Features
 
-- Screenshot-inspired lavender browser interface: rounded menus, tab search, tab groups, multi-selection, a grouped-tab strip, and light/dark themes. Settings retain the grouped preference layout. The supplied blue logo is retained; this is not a repackaged Chrome app.
+- Screenshot-inspired lavender browser interface: rounded menus, tab search, tab groups, multi-selection, a grouped-tab strip, and light/dark themes. Settings retain the grouped preference layout. The supplied globe-and-shield orbit logo is used; this is not a repackaged Chrome app.
 - Persistent Gecko profile for cookies and website sign-ins; saved tabs, browsing history, bookmarks, folders and bookmark import/export.
 - Fixed DuckDuckGo address-bar search and mandatory Safe Search parameters on supported search routes.
 - On-device image processing: configured skin-color pixels receive grayscale and strong blur with a 15-pixel surrounding mask. A 40×40 region becomes a 70×70 mask. Images stay hidden until verification succeeds; decoding, size, request and filtering failures stay blocked. Recognized CAPTCHA providers have scoped challenge exceptions.
@@ -66,4 +66,10 @@ DuckDuckGo remains the fixed search engine. Google branding, Discover news and G
 ![Browser menu](docs/browser-menu-2.11.png)
 ![Tab groups](docs/group-2.11.png)
 
-[Download version 2.11](https://github.com/sdmde/Kosher-Browsing/releases/tag/v2.11).
+[Download version 2.12](https://github.com/sdmde/Kosher-Browsing/releases/tag/v2.12).
+
+## Version 2.12 icon
+
+The launcher, home page and About screen use the supplied globe-and-shield orbit image. The original PNG is packaged unchanged; Android applies the launcher mask.
+
+![Kosher Browsing icon](docs/icon-2.12.png)

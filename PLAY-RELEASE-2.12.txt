@@ -1,0 +1,5 @@
+Kosher Browsing 2.12
+
+- New globe-and-shield orbit icon for the launcher, home page and About screen.
+- Updated the adaptive icon background to match the supplied artwork.
+- Browsing features, saved data and protections remain unchanged.

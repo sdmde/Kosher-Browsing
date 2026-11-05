@@ -1,6 +1,6 @@
 # Bundled sources
 
-Launcher logo: user-supplied IMG-20261019-WA7263.jpg, packaged unchanged as kosher_logo.jpg. Adaptive-icon XML supplies placement and background.
+Launcher logo (version 2.12): user-supplied Globe Shield Orbit Icon.png, packaged unchanged as kosher_logo.png. Adaptive-icon XML supplies placement and a white background. The same image is used on the home and About screens.
 
 EasyList authors, https://easylist.to/ and https://github.com/easylist/easylist. Ad servers and general block sources retrieved 2026-10-19. Distributed under GPL-3.0-or-later (one of EasyList's offered licenses): see COPYING-GPL-3.0.txt and https://easylist.to/pages/licence.html. Unconditional hostname rules are extracted; only simple unconditional URL-path fragments are imported. This is a subset, not a complete AdBlock syntax engine. Original extracted source files are in third-party/.
 
