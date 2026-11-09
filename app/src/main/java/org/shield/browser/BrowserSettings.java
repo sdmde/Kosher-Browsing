@@ -290,7 +290,7 @@ final class BrowserSettings {
         item("History", null, () -> leave(a::showHistory));
         group("About");
         item("Extensions", "Built-in browsing protections", () -> open("Extensions"));
-        item("About Kosher Browsing", "Version 2.12", () -> open("About Kosher Browsing"));
+        item("About Kosher Browsing", "Version 2.13", () -> open("About Kosher Browsing"));
     }
 
     private void search() {

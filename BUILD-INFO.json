@@ -1,34 +1,34 @@
 {
-  "version": "2.12",
-  "versionCode": 19,
+  "version": "2.13",
+  "versionCode": 20,
   "applicationId": "org.shield.browser",
   "minSdk": 26,
   "targetSdk": 36,
-  "change": "User-supplied globe shield orbit icon",
-  "icon": {
-    "sourceFile": "Globe Shield Orbit Icon.png",
-    "sourceSha256": "b1f42738857ee4e0e90a61dfa8a7285ab2bdd4e6203b0936d6954a3ceedf4e76",
-    "width": 1254,
-    "height": 1254,
-    "bundle": {
-      "resource": "base/res/drawable-nodpi-v4/kosher_logo.png",
-      "sha256": "25b44f089fa7cd54efd4a06234e3a0c562f93bdef134fc98a0f011154bd33a7b",
-      "pixelsMatch": true
-    },
-    "apk": {
-      "resource": "res/drawable-nodpi-v4/kosher_logo.png",
-      "sha256": "b1f42738857ee4e0e90a61dfa8a7285ab2bdd4e6203b0936d6954a3ceedf4e76",
-      "pixelsMatch": true
-    }
+  "apkBuildVariant": "release",
+  "apkDebuggable": false,
+  "apkTestOnly": false,
+  "sideloadCertificateSha256": "2de1718d8f7abc6ed779a67c0bc664a92744933d8b0bc17823edf366fa1a0171",
+  "sideloadCertificatePreserved": true,
+  "emulatorChecks": {
+    "api": 30,
+    "releaseVariant": true,
+    "debugRunAsDenied": true,
+    "existingNormalTabsPreservedOnUpdate": true,
+    "lastPrivateReturnsToNormal": true,
+    "newTabAfterPrivateIsNormal": true,
+    "remainingPrivateTabRetainsMode": true,
+    "closeAllPrivateReturnsToNormal": true,
+    "groupStripCloseReturnsToNormal": true,
+    "onlyPrivateCreatesSingleNormalTab": true,
+    "relaunchNormal": true
   },
+  "physicalDeviceTested": false,
   "validation": {
     "releaseBuild": true,
     "lint": "0 errors, 26 warnings",
     "bundleValidated": true,
     "bundleSignatureVerified": true,
     "apkSignatureVerified": true,
-    "protectionAssetsMatch": true,
-    "emulatorRerunForIconOnlyChange": false,
-    "physicalDeviceTested": false
+    "protectionAssetsMatch": true
   }
 }

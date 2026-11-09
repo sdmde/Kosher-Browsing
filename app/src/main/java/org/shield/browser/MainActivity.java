@@ -51,7 +51,23 @@ public class MainActivity extends Activity {
  void updateNavigation(){Tab t=current();boolean back=t!=null&&t.back,forward=t!=null&&t.forward;backButton.setEnabled(back);backButton.setAlpha(1f);backButton.setIconColor(back?buttonInk():disabledInk());forwardButton.setEnabled(forward);forwardButton.setAlpha(1f);forwardButton.setIconColor(forward?buttonInk():disabledInk());updateBackHandling();}
  void updateBackHandling(){if(backHandler==null)backHandler=new BackHandler(getWindow(),this::handleBrowserBack);Tab t=current();backHandler.enable(!destroying&&!isFinishing()&&!isDestroyed()&&(features.fullscreen||(t!=null&&t.back)));}
  void renderTabs(){tabStrip.removeAllViews();for(int i=0;i<tabs.size();i++){final Tab t=tabs.get(i);LinearLayout chip=new LinearLayout(this);chip.setGravity(Gravity.CENTER_VERTICAL);chip.setBackground(rounded(i==selected?(dark?0xff394457:0xff8ab4f8):Color.TRANSPARENT,12));TextView title=new TextView(this);title.setText((t.incognito?tr("Incognito")+" · ":"")+t.title);title.setTextColor(ink());title.setTextSize(13);title.setSingleLine();title.setEllipsize(android.text.TextUtils.TruncateAt.END);title.setPadding(dp(12),0,dp(4),0);title.setTypeface(null,i==selected?Typeface.BOLD:Typeface.NORMAL);title.setContentDescription((i==selected?"Selected tab: ":"Tab: ")+t.title);title.setOnClickListener(v->{int index=tabs.indexOf(t);if(index>=0)switchTo(index);});chip.addView(title,new LinearLayout.LayoutParams(dp(132),dp(40)));chip.addView(icon(R.drawable.ic_close,"Close "+t.title,()->closeTab(t)),new LinearLayout.LayoutParams(dp(32),dp(40)));LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(dp(164),dp(40));p.setMarginEnd(dp(4));tabStrip.addView(chip,p);}count.setCount(tabs.size());count.setContentDescription(tr("Tabs")+": "+tabs.size());if(chrome!=null)chrome.updateGroupStrip();}
- void closeTab(Tab t){features.remember(t);int index=tabs.indexOf(t);if(index<0)return;Tab active=current();if(web.getSession()!=null)web.releaseSession();tabs.remove(index);selected=tabs.isEmpty()?0:(tabs.contains(active)?tabs.indexOf(active):Math.min(index,tabs.size()-1));if(!DownloadService.isPinned(t.session))t.session.close();else DownloadService.detach(t.session);if(tabs.isEmpty())add("kosher:home",false);switchTo(selected);}
+ void closeTab(Tab t){int index=tabs.indexOf(t);if(index<0)return;Tab active=current();features.remember(t);if(web.getSession()!=null)web.releaseSession();tabs.remove(index);if(!DownloadService.isPinned(t.session))t.session.close();else DownloadService.detach(t.session);finishClosingTabs(active,index,t.incognito,false);}
+ boolean hasIncognitoTabs(){for(Tab t:tabs)if(t.incognito)return true;return false;}
+ /** All close paths share the same mode and replacement-tab rules. */
+ boolean finishClosingTabs(Tab previous,int preferredIndex,boolean closedPrivate,boolean keepEmptyTray){
+  boolean privateEnded=closedPrivate&&!hasIncognitoTabs();
+  if(tabs.isEmpty()){
+   selected=0;prefs.edit().remove("session_tabs").remove("tabs").putInt("selected",0).apply();
+   if(privateEnded||!keepEmptyTray)add("kosher:home",true,false,false);else renderTabs();
+   return privateEnded;
+  }
+  int next=tabs.indexOf(previous);
+  if(next<0){
+   int anchor=Math.max(0,Math.min(preferredIndex,tabs.size()-1));next=anchor;
+   if(previous!=null){int distance=Integer.MAX_VALUE;for(int i=0;i<tabs.size();i++)if(tabs.get(i).incognito==previous.incognito&&Math.abs(i-anchor)<distance){next=i;distance=Math.abs(i-anchor);}}
+  }
+  selected=next;switchTo(next);return privateEnded;
+ }
  Tab current(){return tabs.isEmpty()?null:tabs.get(selected);}
  void restore(){JSONArray records=features.array("session_tabs");if(records.length()>0){for(int i=0;i<Math.min(100,records.length());i++)features.restoreRecord(records.optJSONObject(i),false);}else try{JSONArray old=new JSONArray(prefs.getString("tabs","[]"));for(int i=0;i<Math.min(100,old.length());i++)add(old.getString(i),false);}catch(Exception ignored){}if(tabs.isEmpty())add("kosher:home",false);switchTo(Math.max(0,Math.min(prefs.getInt("selected",0),tabs.size()-1)));if(getIntent().getData()!=null)navigate(getIntent().getData().toString());if(getIntent().getBooleanExtra("show_downloads",false)){getIntent().removeExtra("show_downloads");downloads.showTransfers();}}
 

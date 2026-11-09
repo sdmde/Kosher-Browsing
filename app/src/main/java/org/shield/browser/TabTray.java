@@ -93,7 +93,17 @@ final class TabTray {
     }
     private FrameLayout preview(MainActivity.Tab t,int color){FrameLayout frame=new FrameLayout(a);frame.setBackground(ui.rounded(color,8));frame.setClipToOutline(true);if(t==null)return frame;if(t.preview!=null&&!t.incognito){ImageView image=new ImageView(a);image.setImageBitmap(t.preview);image.setScaleType(ImageView.ScaleType.CENTER_CROP);frame.addView(image,new FrameLayout.LayoutParams(-1,-1));}else{TextView placeholder=label(t.incognito?"Incognito":t.home?"Kosher\nBrowsing":ui.host(t.url),15,color==0xffb6b9e9?onHighlight():ui.muted());placeholder.setGravity(Gravity.CENTER);placeholder.setPadding(dp(4),0,dp(4),0);frame.addView(placeholder,new FrameLayout.LayoutParams(-1,-1));}return frame;}
     private void open(ArrayList<MainActivity.Tab> tabs,boolean grouped){if(selecting){if(selected.containsAll(tabs))selected.removeAll(tabs);else selected.addAll(tabs);refresh();return;}if(grouped){group=tabs.get(0).group;refresh();return;}MainActivity.Tab t=tabs.get(0);dialog.dismiss();a.switchTo(a.tabs.indexOf(t));}
-    private void close(Collection<MainActivity.Tab> tabs){MainActivity.Tab current=a.current();if(a.web.getSession()!=null)a.web.releaseSession();for(MainActivity.Tab t:new ArrayList<>(tabs)){if(!a.tabs.remove(t))continue;a.features.remember(t);if(!DownloadService.isPinned(t.session))t.session.close();else DownloadService.detach(t.session);}selected.removeAll(tabs);if(!a.tabs.isEmpty()){a.selected=Math.max(0,a.tabs.indexOf(current));a.switchTo(a.selected);}else{a.selected=0;a.renderTabs();a.prefs.edit().remove("session_tabs").remove("tabs").putInt("selected",0).apply();}if(!group.isEmpty()){boolean exists=false;for(MainActivity.Tab t:a.tabs)if(group.equals(t.group)&&t.incognito==privateMode)exists=true;if(!exists)group="";}refresh();}
+    private void close(Collection<MainActivity.Tab> tabs){
+        MainActivity.Tab current=a.current();int previousIndex=a.selected;boolean closedPrivate=false;
+        if(a.web.getSession()!=null)a.web.releaseSession();
+        for(MainActivity.Tab t:new ArrayList<>(tabs)){if(!a.tabs.remove(t))continue;closedPrivate|=t.incognito;a.features.remember(t);if(!DownloadService.isPinned(t.session))t.session.close();else DownloadService.detach(t.session);}
+        selected.removeAll(tabs);
+        if(a.finishClosingTabs(current,previousIndex,closedPrivate,true)){
+            privateMode=false;groupsOnly=false;selecting=false;selected.clear();group="";dialog.dismiss();return;
+        }
+        if(!group.isEmpty()){boolean exists=false;for(MainActivity.Tab t:a.tabs)if(group.equals(t.group)&&t.incognito==privateMode)exists=true;if(!exists)group="";}
+        refresh();
+    }
     private void menu(){
         Dialog menu=ui.sheet();LinearLayout content=ui.column();content.setPadding(dp(8),dp(10),dp(8),dp(12));content.setBackground(ui.rounded(ui.menuFill(),24));
         if(selecting){entry(content,menu,IconButton.GROUP,"Group selected tabs",()->createGroup(new ArrayList<>(selected)));entry(content,menu,R.drawable.ic_close,"Close selected tabs",()->close(new ArrayList<>(selected)));entry(content,menu,IconButton.SELECT,"Select all",()->{selected.addAll(visible());refresh();});}

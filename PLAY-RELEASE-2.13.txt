@@ -1,0 +1,6 @@
+Kosher Browsing 2.13
+
+- Closing the last incognito tab now exits private mode and returns to normal browsing.
+- Fixed the same behavior for close-all, tab groups and grouped-tab controls.
+- Opens one normal home tab if no normal tabs remain.
+- Published APK is a non-debuggable release build, retaining the prior sideload certificate for updates.

@@ -1,6 +1,6 @@
 # Kosher Browsing
 
-An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.12 (version code 19)**. Package: `org.shield.browser`. Developer: sdmde.
+An independent Android browser built with Mozilla GeckoView and a packaged protection WebExtension. Current version: **2.13 (version code 20)**. Package: `org.shield.browser`. Developer: sdmde.
 
 ## Features
 
@@ -66,10 +66,16 @@ DuckDuckGo remains the fixed search engine. Google branding, Discover news and G
 ![Browser menu](docs/browser-menu-2.11.png)
 ![Tab groups](docs/group-2.11.png)
 
-[Download version 2.12](https://github.com/sdmde/Kosher-Browsing/releases/tag/v2.12).
+[Download version 2.13](https://github.com/sdmde/Kosher-Browsing/releases/tag/v2.13).
 
 ## Version 2.12 icon
 
 The launcher, home page and About screen use the supplied globe-and-shield orbit image. The original PNG is packaged unchanged; Android applies the launcher mask.
 
 ![Kosher Browsing icon](docs/icon-2.12.png)
+
+## Version 2.13: leaving incognito
+
+Closing the last incognito tab exits private mode and returns to a normal tab. If no normal tab remains, the browser opens one normal home tab. The same rule applies to the tab overview, close-all, groups and the bottom tab strip. Closing one private tab keeps private mode active when other private tabs remain.
+
+The published APK is now a non-debuggable release build. It keeps the prior GitHub APK signing certificate to preserve sideload updates and local data. Google Play installations should update through Play using the supplied AAB.
